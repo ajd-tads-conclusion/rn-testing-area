@@ -1,11 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { NativeBaseProvider } from "native-base";
 
-import { MainTabs } from './src/routes/Main';
+import { Home } from "./src/screens/Home";
 
 export default function App() {
   return (
-    <MainTabs/>
+    <NativeBaseProvider>
+      <StatusBar
+        style="light"
+        backgroundColor="#1e293b"
+        translucent={false}
+      />
+      <Home />
+    </NativeBaseProvider>
   );
 }
