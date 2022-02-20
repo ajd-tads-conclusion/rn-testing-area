@@ -1,3 +1,3 @@
-# rn-bottom-nav
+# rn-testing-area
 
-Repository to do some testings with React Navigation's Bottom Tabs
+Repositório para testar algumas ferramentas e casos de uso antes de mandar pra produção
