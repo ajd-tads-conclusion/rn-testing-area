@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Feather } from '@expo/vector-icons';
 import { Box, Icon, Stack, Avatar, FlatList, Divider, Pressable, Skeleton, Text } from 'native-base'
+import { supabase } from '../../api/supabase';
 
 type Post = {
   userId: number,
@@ -13,16 +14,24 @@ export const Home = () => {
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
-  // const teste = [{userId: 13284, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'}]
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/comments?postId=1')
-      .then(response => response.json())
-      .then(data => {
-        setLoading(false)
+    async function getPosts() {
+      try{
+        const response = await fetch('https://jsonplaceholder.typicode.com/comments?postId=1')
+        const data = await response.json()
+  
         setPosts(data)
-      })
-      .catch(error => console.error(error));
-  })
+
+        setTimeout(() => {
+          setLoading(false)
+        }, 1100)
+      } catch (e) {
+        console.error(e)
+      }      
+    }
+
+    getPosts()
+  }, [])
 
   return (
     <Box
