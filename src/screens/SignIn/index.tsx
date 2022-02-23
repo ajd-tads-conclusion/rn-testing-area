@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Center, FormControl, Input, Button, Stack, Text } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { Center, FormControl, Input, Button, Stack, Text, useToast, Toast } from 'native-base';
 import { supabase } from '../../api/supabase'
 
-async function CreateUser(email: string, password: string) {
+async function criarUsuario(email: string, password: string) {
   let { user, error } = await supabase.auth.signUp({
     email: email,
     password: password
@@ -14,32 +14,45 @@ async function CreateUser(email: string, password: string) {
 export const SignIn = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [respostaDoSupabase, setRespostaDoSupabase] = useState<any>({ user: null, error: null })
+  const toast = useToast()
+
+  useEffect(() => {
+    if (respostaDoSupabase.user !== null) {
+      toast.show({ description: 'Clique no link que enviamos ao seu e-mail', status: 'success', title: 'Confirme o e-mail' })
+    }
+  }, [respostaDoSupabase])
 
   return (
-    <Center flex={1} bg='blueGray.800'>
-      <FormControl p='3' w={{
-        base: '100%',
-        sm: 350,
-        // md: 300
-      }}>
+    <Center
+      flex={1}
+      bg='blueGray.800'
+    >
+      <FormControl
+        p='3'
+        w={{
+          base: '100%',
+          sm: 400
+        }}>
         <Stack space='3'>
 
           <FormControl.Label _text={{
             color: 'white',
             fontSize: 'xl'
           }}>
-            Usuário
+            E-mail
           </FormControl.Label>
           <Input
+            nativeID='email'
             placeholderTextColor='gray.400'
-            placeholder='insira o seu usuário'
+            placeholder='insira o seu e-mail'
             color='white'
             type='e-mail'
             _hover={{
               color: 'black'
             }}
             value={email}
-            onChangeText={t=>setEmail(t)}
+            onChangeText={t => setEmail(t)}
           />
 
           <FormControl.Label _text={{
@@ -49,6 +62,7 @@ export const SignIn = () => {
             Senha
           </FormControl.Label>
           <Input
+            nativeID='pass'
             placeholderTextColor='gray.400'
             placeholder='insira sua senha aqui'
             color='white'
@@ -57,17 +71,21 @@ export const SignIn = () => {
               color: 'black'
             }}
             value={password}
-            onChangeText={t=>setPassword(t)}
+            onChangeText={t => setPassword(t)}
           />
 
           {/* TODO: chamar o supabase login aqui */}
           <Button
-            onPress={() => alert('a')}
+            onPress={async () => {
+              const res = await criarUsuario(email, password)
+              setRespostaDoSupabase(res)
+            }}
           >
             Cadastrar-se
           </Button>
 
-          <Stack direction='row' alignItems='center' alignSelf='center'>
+          <Stack direction='row' alignItems='center' alignSelf='center'
+          >
             <Text color={'white'}>
               Já possui uma conta?
             </Text>

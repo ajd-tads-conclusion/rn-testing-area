@@ -2,7 +2,7 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
 
-import { SignIn } from "./src/screens/SignIn";
+import { Home } from "./src/screens/Home";
 
 export default function App() {
   return (
@@ -12,7 +12,7 @@ export default function App() {
         backgroundColor="#1e293b"
         translucent={false}
       />
-      <SignIn />
+      <Home />
     </NativeBaseProvider>
   );
 }

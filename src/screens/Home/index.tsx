@@ -15,11 +15,11 @@ export const Home = () => {
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    async function getPosts() {
-      try{
+    async function carregarPosts() {
+      try {
         const response = await fetch('https://jsonplaceholder.typicode.com/comments?postId=1')
         const data = await response.json()
-  
+
         setPosts(data)
 
         setTimeout(() => {
@@ -27,10 +27,10 @@ export const Home = () => {
         }, 1100)
       } catch (e) {
         console.error(e)
-      }      
+      }
     }
 
-    getPosts()
+    carregarPosts()
   }, [])
 
   return (
@@ -55,9 +55,9 @@ export const Home = () => {
         >
           <Avatar bg='amber.500'
             size='sm'
-          source={{
-            uri: 'https://avatars.githubusercontent.com/u/80872981?v=4'
-          }}
+            source={{
+              uri: 'https://avatars.githubusercontent.com/u/80872981?v=4'
+            }}
           >
             {/* TODO: pegar 2 iniciais do usuário */}
             RD
@@ -74,7 +74,6 @@ export const Home = () => {
         data={posts}
         mt='5'
         keyExtractor={(e) => String(e.id)}
-        alwaysBounceVertical={true}
         ItemSeparatorComponent={() => <Divider alignSelf='center' my='3' />}
         renderItem={(e) => {
           return (
