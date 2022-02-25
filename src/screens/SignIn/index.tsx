@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Center, FormControl, Input, Button, Stack, Text, useToast } from 'native-base';
 import { supabase } from '../../api/supabase'
-import { AuthResponse } from '../SignUp';
+import type { AuthResponse } from '../SignUp';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+import type { TelasDaRotaAuth } from '../../routes/Auth';
+
+type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignIn'>
 
 async function logarUsuario(email: string, password: string): Promise<AuthResponse> {
   let { user, error } = await supabase.auth.signIn({
@@ -12,7 +17,7 @@ async function logarUsuario(email: string, password: string): Promise<AuthRespon
   return { user, error }
 }
 
-export const SignIn = () => {
+export const SignIn = ({ navigation }: Props) => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [respostaDoSupabase, setRespostaDoSupabase] = useState<AuthResponse>({ user: null, error: null })
@@ -27,6 +32,7 @@ export const SignIn = () => {
         description: 'Login efetuado com sucesso'
       })
 
+      navigation.navigate('Home')
       return
     }
 
@@ -107,7 +113,10 @@ export const SignIn = () => {
             <Text color={'white'}>
               Não possui uma conta?
             </Text>
-            <Button variant='link'>
+            <Button 
+              variant='link'
+              onPress={() => navigation.navigate('SignUp')}
+            >
               Cadastre-se
             </Button>
           </Stack>

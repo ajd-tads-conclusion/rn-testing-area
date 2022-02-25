@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Feather } from '@expo/vector-icons';
 import { Box, Icon, Stack, Avatar, FlatList, Divider, Pressable, Skeleton, Text } from 'native-base'
-// import { supabase } from '../../api/supabase';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+
+import type { TelasDaRotaAuth } from '../../routes/Auth'
+
+type Props = NativeStackScreenProps<TelasDaRotaAuth, 'Home'>
 
 type Post = {
   userId: number,
@@ -10,7 +14,7 @@ type Post = {
   body: string
 }
 
-export const Home = () => {
+export const Home = ({ navigation }: Props) => {
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
