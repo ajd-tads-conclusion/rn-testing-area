@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Center, FormControl, Input, Button, Stack, Text, useToast } from 'native-base';
 import { supabase } from '../../api/supabase'
-import { AuthResponse } from '../SignUp';
+import { User, ApiError } from '@supabase/supabase-js'
 
-async function logarUsuario(email: string, password: string): Promise<AuthResponse> {
-  let { user, error } = await supabase.auth.signIn({
+export type AuthResponse = {
+  user: User | null,
+  error: ApiError | null
+}
+
+async function criarUsuario(email: string, password: string): Promise<AuthResponse> {
+  let { user, error } = await supabase.auth.signUp({
     email: email,
     password: password
   })
@@ -12,7 +17,7 @@ async function logarUsuario(email: string, password: string): Promise<AuthRespon
   return { user, error }
 }
 
-export const SignIn = () => {
+export const SignUp = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [respostaDoSupabase, setRespostaDoSupabase] = useState<AuthResponse>({ user: null, error: null })
@@ -20,11 +25,19 @@ export const SignIn = () => {
 
   useEffect(() => {
     if (respostaDoSupabase.user !== null) {
-      // navegar para a tela home
       toast.show({
         status: 'success',
-        title: 'Bem-vindo',
-        description: 'Login efetuado com sucesso'
+        title: 'Confirme o e-mail',
+        description: 'Clique no link que enviamos ao seu e-mail'
+      })
+
+      return
+    }
+
+    if (respostaDoSupabase.error?.status === 429) {
+      toast.show({
+        status: 'error',
+        title: 'Tente novamente mais tarde'
       })
 
       return
@@ -95,20 +108,20 @@ export const SignIn = () => {
           {/* TODO: chamar o supabase login aqui */}
           <Button
             onPress={async () => {
-              const res = await logarUsuario(email, password)
+              const res = await criarUsuario(email, password)
               setRespostaDoSupabase(res)
             }}
           >
-            Login
+            Cadastrar-se
           </Button>
 
           <Stack direction='row' alignItems='center' alignSelf='center'
           >
             <Text color={'white'}>
-              Não possui uma conta?
+              Já possui uma conta?
             </Text>
             <Button variant='link'>
-              Cadastre-se
+              Faça login
             </Button>
           </Stack>
 

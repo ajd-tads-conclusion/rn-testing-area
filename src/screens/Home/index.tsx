@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Feather } from '@expo/vector-icons';
 import { Box, Icon, Stack, Avatar, FlatList, Divider, Pressable, Skeleton, Text } from 'native-base'
-import { supabase } from '../../api/supabase';
+// import { supabase } from '../../api/supabase';
 
 type Post = {
   userId: number,
