@@ -1,24 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import { Feather } from '@expo/vector-icons';
-import { Box, Icon, Stack, Avatar, FlatList, Divider, Pressable, Skeleton, Text } from 'native-base'
-// import { supabase } from '../../api/supabase';
+import {
+  Box,
+  Icon,
+  Stack,
+  Avatar,
+  FlatList,
+  Divider,
+  Pressable,
+  Skeleton,
+  Text,
+  useToast
+} from 'native-base'
+import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { supabase } from '../../api/supabase';
 
-type Post = {
-  userId: number,
-  id: number,
-  title: string,
-  body: string
+import type { TelasDaRotaAuth } from '../../routes/Auth'
+import { removeSessaoLocalmente } from '../../routes/Auth/asyncStorage';
+import { signOutUsuario } from '../../routes/Auth/supabaseAuth';
+
+type Props = NativeStackScreenProps<TelasDaRotaAuth, 'Home'>
+
+type tabela_teste = {
+  id: string, 
+  owner: string,
+  seila_kk: string
 }
 
-export const Home = () => {
-  const [posts, setPosts] = useState<Post[]>([])
+export const Home = ({ navigation }: Props) => {
+  const [posts, setPosts] = useState<tabela_teste[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const toast = useToast()
 
   useEffect(() => {
     async function carregarPosts() {
       try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/comments?postId=1')
-        const data = await response.json()
+        const { data, error } = await supabase.from<tabela_teste>('tabela_teste').select('*')
+
+        if(data === null) {
+          return
+        }
 
         setPosts(data)
 
@@ -51,7 +72,24 @@ export const Home = () => {
         </Pressable>
 
         <Pressable
-          onPress={() => alert('a')}
+          onPress={() => {
+            (async function () {
+              const error = await signOutUsuario()
+
+              if (error) {
+                toast.show({
+                  status: 'error',
+                  title: 'Tente novamente',
+                  description: 'Ocorreu um erro ao fazer Logout, tente novamente'
+                })
+
+                return
+              }
+
+              removeSessaoLocalmente()
+              navigation.navigate('SignIn')
+            })()
+          }}
         >
           <Avatar bg='amber.500'
             size='sm'
@@ -59,11 +97,8 @@ export const Home = () => {
               uri: 'https://avatars.githubusercontent.com/u/80872981?v=4'
             }}
           >
-            {/* TODO: pegar 2 iniciais do usuário */}
             RD
             <Avatar.Badge
-              // aqui pode ser implementado uma lógica que muda a cor do bg conforme o status
-              // (online, ausente, nao pertube)
               bg='green.600'
             />
           </Avatar>
@@ -89,7 +124,7 @@ export const Home = () => {
               <Text
                 color='white'
               >
-                {e.item.body}
+                {e.item.seila_kk}
               </Text>
             </Skeleton.Text>
           )

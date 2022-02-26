@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Center, FormControl, Input, Button, Stack, Text, useToast } from 'native-base';
-import { supabase } from '../../api/supabase'
-import { User, ApiError } from '@supabase/supabase-js'
+import {
+  Center,
+  FormControl,
+  Input,
+  Button,
+  Stack,
+  Text,
+  useToast
+} from 'native-base';
 
-export type AuthResponse = {
-  user: User | null,
-  error: ApiError | null
-}
+import { AuthResponse, criarUsuario } from '../../routes/Auth/supabaseAuth';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { TelasDaRotaAuth } from '../../routes/Auth';
 
-async function criarUsuario(email: string, password: string): Promise<AuthResponse> {
-  let { user, error } = await supabase.auth.signUp({
-    email: email,
-    password: password
-  })
+type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignUp'>
 
-  return { user, error }
-}
-
-export const SignUp = () => {
+export const SignUp = ({ navigation }: Props) => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [respostaDoSupabase, setRespostaDoSupabase] = useState<AuthResponse>({ user: null, error: null })
@@ -120,7 +118,10 @@ export const SignUp = () => {
             <Text color={'white'}>
               Já possui uma conta?
             </Text>
-            <Button variant='link'>
+            <Button
+              variant='link'
+              onPress={() => navigation.navigate('SignIn')}
+            >
               Faça login
             </Button>
           </Stack>

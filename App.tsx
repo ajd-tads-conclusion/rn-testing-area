@@ -1,20 +1,22 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
+import { NavigationContainer } from "@react-navigation/native";
 
-import { SignIn } from "./src/screens/SignIn";
-import { SignUp } from "./src/screens/SignUp";
+import { Auth } from "./src/routes/Auth";
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <StatusBar
-        style="light"
-        backgroundColor="#1e293b"
-        translucent={false}
-      />
-      <SignIn />
-      <SignUp />
-    </NativeBaseProvider>
+    <NavigationContainer>
+      <NativeBaseProvider>
+        <StatusBar
+          style="light"
+          backgroundColor="#1e293b"
+          translucent={false}
+        />
+        <Auth />
+      </NativeBaseProvider>
+    </NavigationContainer>
+
   );
 }
