@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Center, FormControl, Input, Button, Stack, Text, useToast } from 'native-base';
-import { supabase } from '../../api/supabase'
-import type { AuthResponse } from '../SignUp';
+import {
+  Center,
+  FormControl,
+  Input,
+  Button,
+  Stack,
+  Text,
+  useToast
+} from 'native-base';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { supabase } from '../../api/supabase'
+import { checarSessaoLocalmente, removeSessaoLocalmente, salvaSessaoLocalmente } from '../../routes/Auth/asyncStorage';
 import type { TelasDaRotaAuth } from '../../routes/Auth';
+import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth';
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignIn'>
-
-async function logarUsuario(email: string, password: string): Promise<AuthResponse> {
-  let { user, error } = await supabase.auth.signIn({
-    email: email,
-    password: password
-  })
-
-  return { user, error }
-}
 
 export const SignIn = ({ navigation }: Props) => {
   const [email, setEmail] = useState<string>('')
@@ -24,15 +24,34 @@ export const SignIn = ({ navigation }: Props) => {
   const toast = useToast()
 
   useEffect(() => {
+    (async function () {
+      const sessao = await checarSessaoLocalmente()
+      if (sessao) {
+        navigation.navigate('Home')
+      }
+    })()
+  }, [])
+
+  useEffect(() => {
     if (respostaDoSupabase.user !== null) {
-      // navegar para a tela home
       toast.show({
         status: 'success',
         title: 'Bem-vindo',
         description: 'Login efetuado com sucesso'
       })
 
-      navigation.navigate('Home')
+      const session = supabase.auth.session()
+      
+      if (session) {
+        try {
+          salvaSessaoLocalmente(session)
+        } catch {
+          removeSessaoLocalmente()
+        } finally {
+          navigation.navigate('Home')
+        }
+      }
+
       return
     }
 
@@ -98,7 +117,6 @@ export const SignIn = ({ navigation }: Props) => {
             onChangeText={t => setPassword(t)}
           />
 
-          {/* TODO: chamar o supabase login aqui */}
           <Button
             onPress={async () => {
               const res = await logarUsuario(email, password)
@@ -113,7 +131,7 @@ export const SignIn = ({ navigation }: Props) => {
             <Text color={'white'}>
               Não possui uma conta?
             </Text>
-            <Button 
+            <Button
               variant='link'
               onPress={() => navigation.navigate('SignUp')}
             >

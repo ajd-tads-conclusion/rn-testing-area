@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Center, FormControl, Input, Button, Stack, Text, useToast } from 'native-base';
-import { supabase } from '../../api/supabase'
-import type { User, ApiError } from '@supabase/supabase-js'
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import {
+  Center,
+  FormControl,
+  Input,
+  Button,
+  Stack,
+  Text,
+  useToast
+} from 'native-base';
 
+import { AuthResponse, criarUsuario } from '../../routes/Auth/supabaseAuth';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { TelasDaRotaAuth } from '../../routes/Auth';
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignUp'>
-
-export type AuthResponse = {
-  user: User | null,
-  error: ApiError | null
-}
-
-async function criarUsuario(email: string, password: string): Promise<AuthResponse> {
-  let { user, error } = await supabase.auth.signUp({
-    email: email,
-    password: password
-  })
-
-  return { user, error }
-}
 
 export const SignUp = ({ navigation }: Props) => {
   const [email, setEmail] = useState<string>('')
@@ -125,7 +118,7 @@ export const SignUp = ({ navigation }: Props) => {
             <Text color={'white'}>
               Já possui uma conta?
             </Text>
-            <Button 
+            <Button
               variant='link'
               onPress={() => navigation.navigate('SignIn')}
             >
