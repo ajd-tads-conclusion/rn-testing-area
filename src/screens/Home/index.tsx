@@ -19,7 +19,7 @@ import type { TelasDaRotaAuth } from '../../routes/Auth'
 import { removeSessaoLocalmente } from '../../routes/Auth/asyncStorage';
 import { signOutUsuario } from '../../routes/Auth/supabaseAuth';
 
-type Props = NativeStackScreenProps<TelasDaRotaAuth, 'Home'>
+type Props = NativeStackScreenProps<TelasDaRotaAuth, 'MainTabs'>
 
 type tabela_teste = {
   id: string, 
