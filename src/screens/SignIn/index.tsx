@@ -27,7 +27,7 @@ export const SignIn = ({ navigation }: Props) => {
     (async function () {
       const sessao = await checarSessaoLocalmente()
       if (sessao) {
-        navigation.navigate('Home')
+        navigation.navigate('MainTabs')
       }
     })()
   }, [])
@@ -48,7 +48,7 @@ export const SignIn = ({ navigation }: Props) => {
         } catch {
           removeSessaoLocalmente()
         } finally {
-          navigation.navigate('Home')
+          navigation.navigate('MainTabs')
         }
       }
 
