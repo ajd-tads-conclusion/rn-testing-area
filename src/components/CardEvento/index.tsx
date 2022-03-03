@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native'
 export type DadosDoEvento = {
   id: string,
   titulo: string,
+  autor: string,
+  modalidade: string,
   data_do_evento: string,
   descricao: string,
   horario_do_evento: string,
@@ -24,7 +26,7 @@ export const CardEvento = (props: Props) => {
 
   return (
     <Box
-      bg='blueGray.400'
+      bg='blueGray.300'
       rounded='sm'
       p='10px'
     >
