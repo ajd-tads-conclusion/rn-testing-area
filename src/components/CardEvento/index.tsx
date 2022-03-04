@@ -9,6 +9,8 @@ export type DadosDoEvento = {
   autor: string,
   modalidade: string,
   data_do_evento: string,
+  num_de_participantes: number,
+  max_num_de_participantes: number,
   descricao: string,
   horario_do_evento: string,
   valor: string,
