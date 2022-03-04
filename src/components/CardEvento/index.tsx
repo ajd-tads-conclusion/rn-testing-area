@@ -57,6 +57,7 @@ export const CardEvento = (props: Props) => {
                   flex='1'
                   rounded='sm'
                   key={i}
+                  startColor='amber.100'
                   maxW='60%'
                   h={['80px', '100px']}
                 />
