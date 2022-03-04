@@ -14,7 +14,7 @@ const EventoStack = createNativeStackNavigator<TelasDaRotaDeEvento>()
 export const RotaDoEvento = () => {
   return (
     <EventoStack.Navigator 
-      initialRouteName='TelaDoEvento'
+      initialRouteName='Events'
       screenOptions={{headerShown: false}}
     >
       <EventoStack.Screen name='Events' component={Events}/>

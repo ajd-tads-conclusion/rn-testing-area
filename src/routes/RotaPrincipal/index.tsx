@@ -74,7 +74,7 @@ export const RotaPrincipal = () => {
           }
         }
       }}
-      initialRouteName='RotaDoEvento'
+      initialRouteName='Home'
     >
       <Tab.Screen component={RotaDoEvento} name="RotaDoEvento" />
       <Tab.Screen component={Home} name="Home" />
