@@ -3,14 +3,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from '@expo/vector-icons'
 
 import { Home } from "../../screens/Home";
-import { Tela1 } from "../../screens/Tela1";
 import { Tela2 } from "../../screens/Tela2";
+import { RotaDoEvento } from '../RotaDoEvento'
 
 type IconName = keyof typeof Ionicons.glyphMap
 
 export type TelasDaRotaPrincipal = {
   Home: undefined,
-  Tela1: undefined,
+  RotaDoEvento: undefined,
   Tela2: undefined
 }
 
@@ -26,14 +26,14 @@ export const RotaPrincipal = () => {
           tabBarInactiveTintColor: 'yellow',
           tabBarStyle: {
             position: 'absolute',
-            bottom: 10,
-            left: 10,
-            right: 10,
+            bottom: 5,
+            left: 5,
+            right: 5,
             elevation: 0,
             backgroundColor: '#ff6868',
-            borderRadius: 15,
+            borderRadius: 4,
             borderTopWidth: 0,
-            height: 100,
+            height: 50,
           },
           tabBarIcon: ({ color, focused }) => {
             let iconName: IconName | undefined
@@ -43,7 +43,7 @@ export const RotaPrincipal = () => {
                 case "Home":
                   iconName = 'add-circle'
                   break
-                case "Tela1":
+                case "RotaDoEvento":
                   iconName = 'alarm'
                   break
                 case "Tela2":
@@ -57,7 +57,7 @@ export const RotaPrincipal = () => {
                 case "Home":
                   iconName = 'add-circle-outline'
                   break
-                case "Tela1":
+                case "RotaDoEvento":
                   iconName = 'alarm-outline'
                   break
                 case "Tela2":
@@ -76,7 +76,7 @@ export const RotaPrincipal = () => {
       }}
       initialRouteName='Home'
     >
-      <Tab.Screen component={Tela1} name="Tela1" />
+      <Tab.Screen component={RotaDoEvento} name="RotaDoEvento" />
       <Tab.Screen component={Home} name="Home" />
       <Tab.Screen component={Tela2} name="Tela2" />
     </Tab.Navigator>
