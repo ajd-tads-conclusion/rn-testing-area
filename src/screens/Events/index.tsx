@@ -17,56 +17,66 @@ const eventosFake: DadosDoEvento[] = [
     id: '1',
     titulo: '1ª CORRIDA DO 5º BPM - 40 ANOS EU PRECISO DE UM TITULO GRANDE PARA TESTAR',
     data_do_evento: '13-03-2022',
-    autor: 'aaa',
-    modalidade: 'sjdbf',
-    descricao: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).`,
+    autor: 'Batalhão Policial Militar',
+    modalidade: 'corrida',
+    descricao: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like a long established fact that a reader will be distracted by the readable content of a page when looking at its layout).`,
     horario_do_evento: '06:00',
     valor: 'R$50.00',
-    imagens: ['', '']
+    imagens: ['', ''],
+    num_de_participantes: 156,
+    max_num_de_participantes: 200
   },
   {
     id: '2',
     titulo: 'VIII VOLTA DE SÃO JOSÉ',
     data_do_evento: '20-03-2022',
-    autor: 'aaa',
-    modalidade: 'sjdbf',
+    autor: 'Prefeitura de Castanhal',
+    modalidade: 'caminhada',
     descricao: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).`,
     horario_do_evento: '06:00',
     valor: 'R$55.00',
-    imagens: ['', '', '']
+    imagens: ['', '', ''],
+    num_de_participantes: 31,
+    max_num_de_participantes: 180
   },
   {
     id: '3',
     titulo: '2ª CORRIDA DA GAOPA',
     data_do_evento: '10-04-2022',
     autor: 'aaa',
-    modalidade: 'sjdbf',
+    modalidade: 'GAOPA',
     descricao: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).`,
     horario_do_evento: '06:00',
     valor: 'R$70.00',
-    imagens: ['']
+    imagens: [''],
+    num_de_participantes: 40,
+    max_num_de_participantes: 75
   },
   {
     id: '4',
-    titulo: '2ª CORRIDA DA GAOPA',
+    titulo: '1ª PEDALADA DO ESTRELA',
     data_do_evento: '10-04-2022',
-    autor: 'aaa',
-    modalidade: 'sjdbf',
+    autor: 'Francisco Cunha',
+    modalidade: 'ciclismo',
     descricao: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).`,
     horario_do_evento: '06:00',
     valor: 'R$70.00',
-    imagens: ['']
+    imagens: [''],
+    num_de_participantes: 17,
+    max_num_de_participantes: 30
   },
   {
     id: '5',
     titulo: 'MEIA MARATONA DE CASTANHAL',
     data_do_evento: '13-03-2022',
-    autor: 'aaa',
-    modalidade: 'sjdbf',
+    autor: 'Prefeitura de Castanhal',
+    modalidade: 'corrida',
     descricao: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).`,
     horario_do_evento: '05:30',
     valor: 'R$90.00',
-    imagens: ['', '', '', '', '', '']
+    imagens: ['', '', '', '', '', ''],
+    num_de_participantes: 376,
+    max_num_de_participantes: 400
   }
 ]
 
