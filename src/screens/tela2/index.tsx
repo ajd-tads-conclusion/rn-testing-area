@@ -4,7 +4,7 @@ import React from 'react'
 export const Tela2 = () => {
   return (
     <>
-    <Text alignSelf='center' justifySelf='center'>
+    <Text>
       Tela 2
     </Text>
     </>
