@@ -14,7 +14,7 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
       flex='1'
       bg='blueGray.800'
       alignContent='center'
-      justifyItems='center'
+      justifyContent='center'
     >
       
       <Stack

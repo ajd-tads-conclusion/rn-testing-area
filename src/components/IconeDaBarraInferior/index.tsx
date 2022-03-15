@@ -39,6 +39,7 @@ export const IconeDaBarraInferior = ({item, onPress, accessibilityState} : Props
     width: 30,
     height: 30,
     borderColor: 'white',
+    backgroundColor: '#1e293b',
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center'
@@ -62,14 +63,14 @@ export const IconeDaBarraInferior = ({item, onPress, accessibilityState} : Props
     bezierValues: [0.17, 0.67, 0.74, 1.58]
   })
 
-  const bgAnimado = animarMudancaDeEstilo({
-    from: '#1e293b',
-    to: '#161a22',
-    bool: iconeEstaAtivo,
-    duration: 350,
-    property: 'backgroundColor',
-    bezierValues: [0.17, 0.67, 0.74, 1.58]
-  })
+  // const bgAnimado = animarMudancaDeEstilo({
+  //   from: '#1e293b',
+  //   to: '#161a22',
+  //   bool: iconeEstaAtivo,
+  //   duration: 350,
+  //   property: 'backgroundColor',
+  //   bezierValues: [0.17, 0.67, 0.74, 1.58]
+  // })
 
   return (
     <TouchableOpacity
@@ -77,7 +78,7 @@ export const IconeDaBarraInferior = ({item, onPress, accessibilityState} : Props
       activeOpacity={1}
       style={styles.container}
     >
-      <Animated.View style={[estiloInicial, posicaoAnimada, bordaAnimada, bgAnimado]}>
+      <Animated.View style={[estiloInicial, posicaoAnimada, bordaAnimada]}>
         <Ionicons size={13} color={'white'} name={iconeEstaAtivo ? item.iconeAtivo : item.iconeInativo} />
       </Animated.View>
     </TouchableOpacity>
