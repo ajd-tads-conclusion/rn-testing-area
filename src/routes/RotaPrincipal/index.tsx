@@ -3,10 +3,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from '@expo/vector-icons'
 
 import { Home } from "../../screens/Home";
-import { Tela2 } from "../../screens/Tela2";
+import { Tela2 } from "../../screens/tela2";
 import { RotaDoEvento } from '../RotaDoEvento'
+import { IconeDaBarraInferior } from '../../components/IconeDaBarraInferior'
 
-type IconName = keyof typeof Ionicons.glyphMap
+type IconeDoIonicons = keyof typeof Ionicons.glyphMap
 
 export type TelasDaRotaPrincipal = {
   Home: undefined,
@@ -16,69 +17,47 @@ export type TelasDaRotaPrincipal = {
 
 const Tab = createBottomTabNavigator<TelasDaRotaPrincipal>()
 
+export type PropsIconeBarraInferior = {
+  rota: keyof TelasDaRotaPrincipal,
+  componente: any,
+  iconeAtivo: IconeDoIonicons,
+  iconeInativo: IconeDoIonicons
+}
+
+const TabArr: PropsIconeBarraInferior[] = [
+  { rota: 'RotaDoEvento', componente: RotaDoEvento, iconeAtivo: 'calendar', iconeInativo: 'calendar-outline' },
+  { rota: 'Home', componente: Home, iconeAtivo: 'home', iconeInativo: 'home-outline' },
+  { rota: 'Tela2', componente: Tela2, iconeAtivo: 'person', iconeInativo: 'person-outline' },
+]
+
 export const RotaPrincipal = () => {
   return (
     <Tab.Navigator
-      screenOptions={(route) => {
-        return {
-          headerShown: false,
-          tabBarActiveTintColor: 'green',
-          tabBarInactiveTintColor: 'yellow',
-          tabBarStyle: {
-            position: 'absolute',
-            bottom: 5,
-            left: 5,
-            right: 5,
-            elevation: 0,
-            backgroundColor: '#ff6868',
-            borderRadius: 4,
-            borderTopWidth: 0,
-            height: 50,
-          },
-          tabBarIcon: ({ color, focused }) => {
-            let iconName: IconName | undefined
-
-            if (!focused) {
-              switch (route.route.name) {
-                case "Home":
-                  iconName = 'add-circle'
-                  break
-                case "RotaDoEvento":
-                  iconName = 'alarm'
-                  break
-                case "Tela2":
-                  iconName = 'airplane'
-                  break
-              }
-            }
-
-            if (focused) {
-              switch (route.route.name) {
-                case "Home":
-                  iconName = 'add-circle-outline'
-                  break
-                case "RotaDoEvento":
-                  iconName = 'alarm-outline'
-                  break
-                case "Tela2":
-                  iconName = 'airplane-outline'
-                  break
-              }
-            }
-            return (
-              <Ionicons
-                name={iconName}
-                size={30}
-              />
-            )
-          }
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          height: 44,
+          borderTopWidth: 0,
+          position: 'absolute',
+          bottom: 8,
+          right: 8,
+          left: 8,
+          borderRadius: 4,
+          flex: 1,
+          display: 'flex'
         }
       }}
-      initialRouteName='Home'
     >
-      <Tab.Screen component={RotaDoEvento} name="RotaDoEvento" />
-      <Tab.Screen component={Home} name="Home" />
-      <Tab.Screen component={Tela2} name="Tela2" />
+      {TabArr.map((item, index) => {
+        return (
+          <Tab.Screen key={index} name={item.rota} component={item.componente}
+            options={{
+              tabBarShowLabel: false,
+              tabBarButton: (props) => <IconeDaBarraInferior {...props} item={item} />
+            }}
+          />
+        )
+      })}
     </Tab.Navigator>
   )
 }
