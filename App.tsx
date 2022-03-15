@@ -1,4 +1,5 @@
 import React from "react";
+import 'react-native-url-polyfill/auto'
 import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
