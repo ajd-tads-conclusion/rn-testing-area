@@ -92,7 +92,7 @@ export const Home = ({ navigation }: Props) => {
           }}
         >
           <Avatar bg='amber.500'
-            size='sm'
+            size='7'
             source={{
               uri: 'https://avatars.githubusercontent.com/u/80872981?v=4'
             }}
