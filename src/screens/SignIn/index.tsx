@@ -133,7 +133,7 @@ export const SignIn = ({ navigation }: Props) => {
             </Text>
             <Button
               variant='link'
-              onPress={() => navigation.navigate('SignUp')}
+              onPress={() => navigation.navigate('SignUpFinish')}
             >
               Cadastre-se
             </Button>

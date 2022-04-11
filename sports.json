@@ -1,0 +1,85 @@
+  [
+  {
+    "name": "sports-basketball",
+    "bg": "amber.600",
+    "tag": "Basquete"
+  },
+  {
+    "name": "sports-baseball",
+    "bg": "emerald.600",
+    "tag": "Beisebol"
+  }, {
+    "name": "rice-bowl",
+    "bg": "blue.600",
+    "tag": "Boliche"
+  }, {
+    "name": "sports-mma",
+    "bg": "orange.600",
+    "tag": "Boxe"
+  }, {
+    "name": "directions-run",
+    "bg": "rose.600",
+    "tag": "Caminhada"
+  },{
+    "name": "directions-bike",
+    "bg": "rose.600",
+    "tag": "Ciclismo"
+  }, {
+    "name": "directions-run",
+    "bg": "rose.600",
+    "tag": "Corrida"
+  },{
+    "name": "sports-esports",
+    "bg": "coolGray.600",
+    "tag": "E-sports"
+  },{
+    "name": "sports-soccer",
+    "bg": "violet.600",
+    "tag": "Futebol"
+  },  {
+    "name": "sports-football",
+    "bg": "lime.600",
+    "tag": "Fotebol Americano"
+  }, {
+    "name": "fitness-center",
+    "bg": "indigo.600",
+    "tag": "Ginástica"
+  }, {
+    "name": "golf-course",
+    "bg": "pink.600",
+    "tag": "Golfe"
+  }, {
+    "name": "sports-handball",
+    "bg": "darkBlue.600",
+    "tag": "Handebol"
+  }, {
+    "name": "sports-kabaddi",
+    "bg": "fuchsia.600",
+    "tag": "Jiu-Jitsu"
+  }, {
+    "name": "sports-mma",
+    "bg": "orange.600",
+    "tag": "MMA"
+  }, {
+    "name": "motorcycle",
+    "bg": "amber.500",
+    "tag": "Motociclismo"
+  }, {
+    "name": "rowing",
+    "bg": "violet.800",
+    "tag": "Remo"
+  }, {
+    "name": "sports-rugby",
+    "bg": "blue.800",
+    "tag": "Rugby"
+  }, {
+    "name": "sports-tennis",
+    "bg": "indigo.600",
+    "tag": "Tênis"
+  }, {
+    "name": "sports-volleyball",
+    "bg": "orange.600",
+    "tag": "Voleibol"
+  }
+
+  ]
