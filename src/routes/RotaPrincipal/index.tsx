@@ -26,14 +26,13 @@ export const RotaPrincipal = () => {
           tabBarInactiveTintColor: 'yellow',
           tabBarStyle: {
             position: 'absolute',
-            bottom: 10,
-            left: 10,
-            right: 10,
+     
             elevation: 0,
-            backgroundColor: '#ff6868',
-            borderRadius: 15,
+            backgroundColor: '#878c97',
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
             borderTopWidth: 0,
-            height: 100,
+            height: 50,
           },
           tabBarIcon: ({ color, focused }) => {
             let iconName: IconName | undefined
