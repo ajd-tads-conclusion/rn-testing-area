@@ -8,20 +8,38 @@ import {
   Text,
   useToast
 } from 'native-base';
+import { useForm, Controller } from 'react-hook-form';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-
 import { supabase } from '../../api/supabase'
 import { checarSessaoLocalmente, removeSessaoLocalmente, salvaSessaoLocalmente } from '../../routes/Auth/asyncStorage';
 import type { TelasDaRotaAuth } from '../../routes/Auth';
 import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignIn'>
 
+type Inputs = {
+  email: string,
+  password: string
+}
+
+const schema = yup.object({
+  email: yup.string().email('O e-mail deve ser válido').required('o e-mail é obrigatório'),
+  password: yup.string().required('A senha é obrigatória').min(6, 'A senha deve ter no mínimo 6 caracteres')
+})
+
 export const SignIn = ({ navigation }: Props) => {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
   const [respostaDoSupabase, setRespostaDoSupabase] = useState<AuthResponse>({ user: null, error: null })
   const toast = useToast()
+
+  const { control, handleSubmit, formState: { errors } } = useForm<Inputs>({
+    defaultValues: {
+      email: '',
+      password: ''
+    },
+    resolver: yupResolver(schema)
+  })
 
   useEffect(() => {
     (async function () {
@@ -41,7 +59,7 @@ export const SignIn = ({ navigation }: Props) => {
       })
 
       const session = supabase.auth.session()
-      
+
       if (session) {
         try {
           salvaSessaoLocalmente(session)
@@ -66,6 +84,12 @@ export const SignIn = ({ navigation }: Props) => {
     }
   }, [respostaDoSupabase])
 
+  const onSubmit = async (data: Inputs) => {
+    console.log(data)
+    const { error, user } = await logarUsuario(data.email, data.password)
+    setRespostaDoSupabase({ user, error })
+  }
+
   return (
     <Center
       flex={1}
@@ -79,51 +103,47 @@ export const SignIn = ({ navigation }: Props) => {
         }}>
         <Stack space='3'>
 
-          <FormControl.Label _text={{
-            color: 'white',
-            fontSize: 'xl'
-          }}>
-            E-mail
-          </FormControl.Label>
-          <Input
-            nativeID='email'
-            placeholderTextColor='gray.400'
-            placeholder='insira o seu e-mail'
-            color='white'
-            type='e-mail'
-            _hover={{
-              color: 'black'
+          <Controller
+            control={control}
+            name={'email'}
+            render={({ field: { value, onChange }, formState: { errors } }) => {
+              return (
+                <>
+                  <Input
+                    placeholder='E-mail'
+                    bgColor={errors.email ? 'danger.300' : 'white'}
+                    color={errors.email ? 'white' : 'black'}
+                    value={value}
+                    onChangeText={onChange}
+                  />
+                  {errors.email && <Text color={'danger.500'}>{errors.email.message}</Text>}
+                </>
+              )
             }}
-            value={email}
-            onChangeText={t => setEmail(t)}
           />
-
-          <FormControl.Label _text={{
-            color: 'white',
-            fontSize: 'xl'
-          }}>
-            Senha
-          </FormControl.Label>
-          <Input
-            nativeID='pass'
-            placeholderTextColor='gray.400'
-            placeholder='insira sua senha'
-            color='white'
-            type='password'
-            _hover={{
-              color: 'black'
+          <Controller
+            control={control}
+            name={'password'}
+            render={({ field: { value, onChange }, formState: { errors } }) => {
+              return (
+                <>
+                  <Input
+                    placeholder='Senha'
+                    bgColor={errors.password ? 'danger.300' : 'white'}
+                    color={errors.password ? 'white' : 'black'}
+                    value={value}
+                    type='password'
+                    onChangeText={onChange}
+                  />
+                  {errors.password && <Text color={'danger.500'}>{errors.password.message}</Text>}
+                </>
+              )
             }}
-            value={password}
-            onChangeText={t => setPassword(t)}
           />
-
           <Button
-            onPress={async () => {
-              const res = await logarUsuario(email, password)
-              setRespostaDoSupabase(res)
-            }}
+            onPress={handleSubmit(onSubmit)}
           >
-            Login
+            Entrar
           </Button>
 
           <Stack direction='row' alignItems='center' alignSelf='center'
