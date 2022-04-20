@@ -1,13 +1,57 @@
-import React from 'react'
-import { Box, Stack, Text, Pressable, Circle, Icon, Button, ScrollView } from 'native-base'
+import React, { useEffect, useState } from 'react'
+import { Box, Stack, Text, Pressable, Circle, Icon, Button, ScrollView, Skeleton } from 'native-base'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Feather } from '@expo/vector-icons'
 import { TelasDaRotaDeEvento } from '../../routes/RotaDoEvento'
+import { supabase } from '../../api/supabase'
 
 type Props = NativeStackScreenProps<TelasDaRotaDeEvento, 'TelaDoEvento'>
 
+type Evento = {
+  id: string,
+  titulo: string,
+  descricao: string,
+  criado_por: string,
+  data: string,
+  horario: string,
+  modalidade: string,
+  max_participantes: number
+}
+
 export const TelaDoEvento = ({ route, navigation }: Props) => {
+  const [evento, setEvento] = useState<Evento | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const { id } = route.params
   const BUTTON_COLOR = 'red.500'
+
+  useEffect(() => {
+    let componenteCarregado = true
+
+    async function carregarEvento() {
+      setLoading(true)
+      const { data, error } =
+        await supabase
+          .from<Evento>('evento')
+          .select('titulo,descricao,data,horario,modalidade,max_participantes,criado_por')
+          .eq('id', id)
+          .limit(1)
+      if (error) {
+        return
+      }
+
+      if (componenteCarregado) setEvento(data[0])
+
+      setTimeout(() => {
+        setLoading(false)
+      }, 500)
+    }
+
+    carregarEvento()
+
+    return () => {
+      componenteCarregado = false
+    }
+  }, [])
 
   return (
     <Box
@@ -16,7 +60,7 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
       alignContent='center'
       justifyContent='center'
     >
-      
+
       <Stack
         direction='row'
         space='26px'
@@ -57,15 +101,23 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
           p='10px'
         // marginTop='10px'
         >
-          <Text
-            color={BUTTON_COLOR}
+          <Skeleton.Text
+            isLoaded={!loading}
+            lines={1}
           >
-            {route.params?.titulo ?? 'nada no momento'}
-          </Text>
+            <Text color={BUTTON_COLOR}>
+              {evento?.titulo}
+            </Text>
+          </Skeleton.Text>
 
-          <Text>
-            {route.params?.descricao ?? 'nada no momento'}
-          </Text>
+          <Skeleton.Text
+            isLoaded={!loading}
+            lines={1}
+          >
+            <Text>
+              {evento?.descricao}
+            </Text>
+          </Skeleton.Text>
 
           <Box
             bg='blueGray.400'
@@ -81,10 +133,17 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
               <Text>
                 Criado por
               </Text>
-
-              <Text>
-                {route.params?.autor ?? 'Paulo Guina'}
-              </Text>
+              <Skeleton.Text
+                isLoaded={!loading}
+                lines={1}
+                flex={0.8}
+              >
+                <Text
+                  textAlign={'right'}
+                >
+                  {evento?.criado_por}
+                </Text>
+              </Skeleton.Text>
             </Stack>
 
             <Stack
@@ -95,9 +154,15 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
                 Data
               </Text>
 
-              <Text>
-                {route.params?.data_do_evento ?? 'data aqui'}
-              </Text>
+              <Skeleton.Text
+                isLoaded={!loading}
+                lines={1}
+                flex={0.8}
+              >
+                <Text>
+                  {evento?.data}
+                </Text>
+              </Skeleton.Text>
             </Stack>
 
             <Stack
@@ -108,9 +173,15 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
                 Horário
               </Text>
 
-              <Text>
-                {route.params?.horario_do_evento ?? 'horario aqui'}
-              </Text>
+              <Skeleton.Text
+                isLoaded={!loading}
+                lines={1}
+                flex={0.8}
+              >
+                <Text>
+                  {evento?.horario}
+                </Text>
+              </Skeleton.Text>
             </Stack>
 
             <Stack
@@ -121,9 +192,15 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
                 Modalidade
               </Text>
 
-              <Text>
-                {route.params?.modalidade ?? 'modalidade aqui'}
-              </Text>
+              <Skeleton.Text
+                isLoaded={!loading}
+                lines={1}
+                flex={0.8}
+              >
+                <Text>
+                  {evento?.modalidade}
+                </Text>
+              </Skeleton.Text>
             </Stack>
 
             <Stack
@@ -133,12 +210,15 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
               <Text>
                 Participantes
               </Text>
-
-              <Text>
-                {route.params?.num_de_participantes ?? 'horario aqui'}
-                {' / '}
-                {route.params?.max_num_de_participantes ?? 'num max'}
-              </Text>
+              <Skeleton.Text
+                isLoaded={!loading}
+                lines={1}
+                flex={0.8}
+              >
+                <Text>
+                  {evento?.max_participantes}
+                </Text>
+              </Skeleton.Text>
             </Stack>
 
           </Box>
@@ -153,7 +233,7 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
               flex='1'
               borderColor={BUTTON_COLOR}
               _text={{
-                color: BUTTON_COLOR, 
+                color: BUTTON_COLOR,
                 fontSize: 'xs'
               }}
             >

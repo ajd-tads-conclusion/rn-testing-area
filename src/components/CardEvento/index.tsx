@@ -1,30 +1,52 @@
-import React from 'react'
-import { Box, Text, Stack, Button, Skeleton } from 'native-base'
+import React, { useEffect, useState } from 'react'
+import { Box, Text, Stack, Button } from 'native-base'
 import { NavigationTelaDeEventos } from '../../screens/Events'
 import { useNavigation } from '@react-navigation/native'
-
-export type DadosDoEvento = {
-  id: string,
-  titulo: string,
-  autor: string,
-  modalidade: string,
-  data_do_evento: string,
-  num_de_participantes: number,
-  max_num_de_participantes: number,
-  descricao: string,
-  horario_do_evento: string,
-  valor: string,
-  imagens: string[]
-}
+import { supabase } from '../../api/supabase'
 
 type Props = {
-  dadosDoEvento: DadosDoEvento
+  id: string
+}
+
+type DadosDoCardDeEvento = {
+  id: string,
+  titulo: string,
+  descricao: string,
+  data: string
 }
 
 export const CardEvento = (props: Props) => {
   const navigation = useNavigation<NavigationTelaDeEventos>()
+  const [detalhes, setDetalhes] = useState<DadosDoCardDeEvento | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const BUTTON_COLOR = 'red.500'
+
+  useEffect(() => {
+    let componenteCarregado = true
+
+
+    async function carregarDetalhes() {
+      try {
+        const { data, error } = await supabase.from<DadosDoCardDeEvento>('evento').select('id,descricao,titulo,data').eq('id', props.id).limit(1)
+
+        if (error) {
+          return
+        }
+
+        if (componenteCarregado && data) setDetalhes(data[0])
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    setLoading(true)
+    carregarDetalhes()
+    setLoading(false)
+
+    return () => {
+      componenteCarregado = false
+    }
+  }, [])
 
   return (
     <Box
@@ -33,42 +55,16 @@ export const CardEvento = (props: Props) => {
       p='10px'
     >
       <Text color={BUTTON_COLOR}>
-        {
-          props.dadosDoEvento.titulo
-        }
+        {detalhes?.titulo || 'Carregando'}
       </Text>
 
       <Text color='blueGray.800'>
         {
-          `${props.dadosDoEvento.descricao.substring(0, 150)}...`
+          detalhes?.descricao
+            ? detalhes.descricao.length > 100 ? detalhes.descricao.substring(0, 100) + '...' : detalhes.descricao
+            : 'Carregando'
         }
       </Text>
-
-      <Stack
-        direction='row'
-        justifyContent='center'
-        space='2'
-        my='10px'
-      >
-
-        {
-          props.dadosDoEvento.imagens.map((_, i) => {
-            return (
-              i < 2
-                ? <Skeleton
-                  flex='1'
-                  rounded='sm'
-                  key={i}
-                  startColor='amber.100'
-                  maxW='60%'
-                  h={['80px', '100px']}
-                />
-                : null
-            )
-          })
-        }
-
-      </Stack>
 
       <Stack
         direction='row'
@@ -93,7 +89,7 @@ export const CardEvento = (props: Props) => {
           _focus={{
             bg: 'red.600'
           }}
-          onPress={() => navigation.navigate('TelaDoEvento', props.dadosDoEvento)}
+          onPress={() => navigation.navigate('TelaDoEvento', { id: props.id })}
         >
           Acessar evento
         </Button>
