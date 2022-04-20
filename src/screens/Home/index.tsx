@@ -22,7 +22,7 @@ import { signOutUsuario } from '../../routes/Auth/supabaseAuth';
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'MainTabs'>
 
 type tabela_teste = {
-  id: string, 
+  id: string,
   owner: string,
   seila_kk: string
 }
@@ -33,18 +33,20 @@ export const Home = ({ navigation }: Props) => {
   const toast = useToast()
 
   useEffect(() => {
+    let componenteCarregado = true
+
     async function carregarPosts() {
       try {
         const { data, error } = await supabase.from<tabela_teste>('tabela_teste').select('*')
 
-        if(data === null) {
+        if (data === null) {
           return
         }
 
-        setPosts(data)
+        if (componenteCarregado) setPosts(data)
 
         setTimeout(() => {
-          setLoading(false)
+          if (componenteCarregado) setLoading(false)
         }, 1100)
       } catch (e) {
         console.error(e)
@@ -52,6 +54,10 @@ export const Home = ({ navigation }: Props) => {
     }
 
     carregarPosts()
+
+    return () => {
+      componenteCarregado = false
+    }
   }, [])
 
   return (
