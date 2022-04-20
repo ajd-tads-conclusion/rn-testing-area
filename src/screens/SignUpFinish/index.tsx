@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Center,
   FormControl,
@@ -7,28 +7,18 @@ import {
   Stack,
   Text,
   useToast,
-  Wrap,
   FlatList,
   IconButton,
   Icon,
-  NativeBaseProvider,
-  Box,
 } from 'native-base';
-import { View, SafeAreaView, Alert } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import { MaterialIcons } from "@expo/vector-icons";
 import { AuthResponse, criarUsuario } from '../../routes/Auth/supabaseAuth';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { TelasDaRotaAuth } from '../../routes/Auth';
 import Wizard from "react-native-wizard";
-import { background } from 'native-base/lib/typescript/theme/styled-system';
-import { FontAwesome5 } from '@expo/vector-icons';
-import colors from 'native-base/lib/typescript/theme/base/colors';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
-// import { background } from 'native-base/lib/typescript/theme/styled-system';
-// import { initialWindowMetrics } from 'react-native-safe-area-context';
-type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignUpFinish'>
 
-  
+type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignUpFinish'>
 
 export const SignUpFinish = ({ navigation }: Props) => {
   const [email, setEmail] = useState<string>('')
@@ -48,109 +38,102 @@ export const SignUpFinish = ({ navigation }: Props) => {
   const [fone, setFone] = useState<string>('')
   const [respostaDoSupabase, setRespostaDoSupabase] = useState<AuthResponse>({ user: null, error: null })
   const toast = useToast()
-  const [genero, setGenero] = useState(0)
   const wizard = useRef()
-  const [ isFirstStep, setIsFirstStep ] = useState(true)
-  const [ isLastStep, setIsLastStep ] = useState(false)
+  const [_isFirstStep, setIsFirstStep] = useState(true)
+  const [_isLastStep, setIsLastStep] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
- 
+
   function AppDrawer() {
     const icons = require('../../../sports.json');
     return <FlatList numColumns={3} m={"15px"} data={icons} renderItem={({
       item
     }) => {
-      return  <Center  width={'35%'} marginBottom={'5px'} marginTop={'10px'}>
-                <IconButton  borderRadius="full" bg={item.bg} variant="solid" p="3" icon={<Icon color="white" name={item.name} as={MaterialIcons} size="24" />}_icon={{
-     
-      size: "md"
-    }} _hover={{
-      bg: "orange.600:alpha.20"
-    }} _pressed={{
-      bg: "blue.600:alpha.20"}}/>
-                <Text textAlign={'center'} width={'100%'} color={'#fff'}>{item.tag}</Text>
-              </Center>;
+      return <Center width={'35%'} marginBottom={'5px'} marginTop={'10px'}>
+        <IconButton borderRadius="full" bg={item.bg} variant="solid" p="3" icon={<Icon color="white" name={item.name} as={MaterialIcons} size="24" />} _icon={{
+
+          size: "md"
+        }} _hover={{
+          bg: "orange.600:alpha.20"
+        }} _pressed={{
+          bg: "blue.600:alpha.20"
+        }} />
+        <Text textAlign={'center'} width={'100%'} color={'#fff'}>{item.tag}</Text>
+      </Center>;
     }} />
   }
   function Example() {
     return <AppDrawer />
- 
   }
   const stepList = [
-      {
-        content:     
-          <Center
-              flex={1}    
-          >
-              <Text
-              color={'white'}
-              fontSize='2em'
-              > {currentStep + 1}. Autenticação</Text>
-              <FormControl
-              p='3'
-              w={{
-                  base: '100%',
-                  sm: 400
+    {
+      content:
+        <Center
+          flex={1}
+        >
+          <Text
+            color={'white'}
+            fontSize='2em'
+          > {currentStep + 1}. Autenticação</Text>
+          <FormControl
+            p='3'
+            w={{
+              base: '100%',
+              sm: 400
+            }}>
+            <Stack space='3'>
+              <FormControl.Label _text={{
+                color: 'white',
+                fontSize: 'xl'
               }}>
-              <Stack space='3'>
-      
-                  <FormControl.Label _text={{
-                  color: 'white',
-                  fontSize: 'xl'
-                  }}>
-                  E-mail 
-                  </FormControl.Label>
-                  <Input
-                  nativeID='email'
-                  placeholderTextColor='gray.400'
-                  placeholder='Insira o seu e-mail'
-                  color='white'
-                  type='e-mail'
-                  _hover={{
-                      color: 'black'
-                  }}
-                  value={email}
-                  onChangeText={t => setEmail(t)}
-                  />
-      
-                  <FormControl.Label _text={{
-                  color: 'white',
-                  fontSize: 'xl'
-                  }}
-                  flex={'1'}
-                  >
-                  Senha
-                  </FormControl.Label>
-                  <Input
-                  flex={'1'}
-                  nativeID='pass'
-                  placeholderTextColor='gray.400'
-                  placeholder='Insira sua senha'
-                  color='white'
-                  type='password'
-                  _hover={{
-                      color: 'black'
-                  }}
-                  value={password}
-                  onChangeText={t => setPassword(t)}
-                  />
-
-                  
-                  <Button
-                  onPress={() => wizard.current.next()}
-                  flex={'1'}
-                  
-                  >
-                  Próximo
-                  </Button>
-      
-              </Stack>
-              </FormControl>
-          </Center>,
-      },
-      {
-        content:    
-          <Center
-          flex={1}    
+                E-mail
+              </FormControl.Label>
+              <Input
+                nativeID='email'
+                placeholderTextColor='gray.400'
+                placeholder='Insira o seu e-mail'
+                color='white'
+                type='e-mail'
+                _hover={{
+                  color: 'black'
+                }}
+                value={email}
+                onChangeText={t => setEmail(t)}
+              />
+              <FormControl.Label _text={{
+                color: 'white',
+                fontSize: 'xl'
+              }}
+                flex={'1'}
+              >
+                Senha
+              </FormControl.Label>
+              <Input
+                flex={'1'}
+                nativeID='pass'
+                placeholderTextColor='gray.400'
+                placeholder='Insira sua senha'
+                color='white'
+                type='password'
+                _hover={{
+                  color: 'black'
+                }}
+                value={password}
+                onChangeText={t => setPassword(t)}
+              />
+              <Button
+                onPress={() => wizard.current.next()}
+                flex={'1'}
+              >
+                Próximo
+              </Button>
+            </Stack>
+          </FormControl>
+        </Center>,
+    },
+    {
+      content:
+        <Center
+          flex={1}
         >
           <Text
             color={'white'}
@@ -163,7 +146,7 @@ export const SignUpFinish = ({ navigation }: Props) => {
               sm: 400
             }}>
             <Stack space='3'>
-    
+
               <FormControl.Label _text={{
                 color: 'white',
                 fontSize: 'xl'
@@ -182,7 +165,6 @@ export const SignUpFinish = ({ navigation }: Props) => {
                 value={name}
                 onChangeText={t => setName(t)}
               />
-    
               <FormControl.Label _text={{
                 color: 'white',
                 fontSize: 'xl'
@@ -219,105 +201,94 @@ export const SignUpFinish = ({ navigation }: Props) => {
                 value={date}
                 onChangeText={t => setDateNasc(t)}
               />
-      
+
               <Stack
                 direction={'row'}
                 flex={'1'}
                 justifyContent={"space-between"}
                 space={'10%'}
                 marginTop={'15px'}
-              >  
-                  <FormControl.Label _text={{
-                      color: 'white',
-                      fontSize: 'xl'
-                      
-                    }}
-                    marginRight={'0'}
-                    width={'45%'}
-                  >
-                    Altura
-                  </FormControl.Label>
-                  <FormControl.Label _text={{
-                      color: 'white',
-                      fontSize: 'xl'
-                      
-                    }}
-                    marginRight={'0'}
-                    width={'45%'}
-                  >
-                    Peso
-                  </FormControl.Label>
-                  
-                </Stack>
-                <Stack
+              >
+                <FormControl.Label _text={{
+                  color: 'white',
+                  fontSize: 'xl'
+                }}
+                  marginRight={'0'}
+                  width={'45%'}
+                >
+                  Altura
+                </FormControl.Label>
+                <FormControl.Label _text={{
+                  color: 'white',
+                  fontSize: 'xl'
+                }}
+                  marginRight={'0'}
+                  width={'45%'}
+                >
+                  Peso
+                </FormControl.Label>
+              </Stack>
+              <Stack
                 direction={'row'}
                 flex={'1'}
                 justifyContent={"space-around"}
                 space={'10%'}
-         
-              >  
-                  <Input
-                    width={'45%'}
-                    nativeID='altura'
-                    placeholderTextColor='gray.400'
-                    placeholder='Insira sua altura'
-                    color='white'
-                    type='numeric'
-                    _hover={{
-                      color: 'black'
-                    }}
-                    value={altura}
-                    onChangeText={t => setAltura(t)}
-                  />
-                  <Input
-                    width={'45%'}
-                    nativeID='peso'
-                    placeholderTextColor='gray.400'
-                    placeholder='Insira seu peso'
-                    color='white'
-                    type='numeric'
-                    _hover={{
-                      color: 'black'
-                    }}
-                    value={peso}
-                    onChangeText={t => setPeso(t)}
-                  />
-                </Stack>
-              <Stack
-              direction={'row'}
-               flex={'1'}
-              justifyContent={"space-between"}
-              space={'20px'}
-              marginTop={'20px'}
-              >           
-                  <Button
-                      onPress={() => wizard.current.prev()}
-                      flex={'1'}
-            
-                  >
-                  Anterior
-                  </Button>
-              
-                  <Button
-                      onPress={() => wizard.current.next()}
-                      flex={'1'}
-              
-                  >
-                  Próximo
-                  </Button>
+              >
+                <Input
+                  width={'45%'}
+                  nativeID='altura'
+                  placeholderTextColor='gray.400'
+                  placeholder='Insira sua altura'
+                  color='white'
+                  type='numeric'
+                  _hover={{
+                    color: 'black'
+                  }}
+                  value={altura}
+                  onChangeText={t => setAltura(t)}
+                />
+                <Input
+                  width={'45%'}
+                  nativeID='peso'
+                  placeholderTextColor='gray.400'
+                  placeholder='Insira seu peso'
+                  color='white'
+                  type='numeric'
+                  _hover={{
+                    color: 'black'
+                  }}
+                  value={peso}
+                  onChangeText={t => setPeso(t)}
+                />
               </Stack>
-
-    
-        
-    
+              <Stack
+                direction={'row'}
+                flex={'1'}
+                justifyContent={"space-between"}
+                space={'20px'}
+                marginTop={'20px'}
+              >
+                <Button
+                  onPress={() => wizard.current.prev()}
+                  flex={'1'}
+                >
+                  Anterior
+                </Button>
+                <Button
+                  onPress={() => wizard.current.next()}
+                  flex={'1'}
+                >
+                  Próximo
+                </Button>
+              </Stack>
             </Stack>
           </FormControl>
-          </Center>,
-      },
-      {
-        content:    
-          <Center
-          flex={1}    
+        </Center>,
+    },
+    {
+      content:
+        <Center
+          flex={1}
         >
           <Text
             color={'white'}
@@ -330,7 +301,6 @@ export const SignUpFinish = ({ navigation }: Props) => {
               sm: 400
             }}>
             <Stack space='3'>
-    
               <FormControl.Label _text={{
                 color: 'white',
                 fontSize: 'xl'
@@ -355,128 +325,119 @@ export const SignUpFinish = ({ navigation }: Props) => {
                 justifyContent={"space-between"}
                 space={'10%'}
                 marginTop={'15px'}
-              >  
-                  <FormControl.Label _text={{
-                      color: 'white',
-                      fontSize: 'xl'
-                      
-                    }}
-                    marginRight={'0'}
-                    width={'20%'}
-                  >
-                    Nº 
-                  </FormControl.Label>
-                  <FormControl.Label _text={{
-                      color: 'white',
-                      fontSize: 'xl'
-                      
-                    }}
-                    marginRight={'0'}
-                    width={'70%'}
-                  >
-                    Bairro
-                  </FormControl.Label>
-                  
-                </Stack>
-                <Stack
+              >
+                <FormControl.Label _text={{
+                  color: 'white',
+                  fontSize: 'xl'
+                }}
+                  marginRight={'0'}
+                  width={'20%'}
+                >
+                  Nº
+                </FormControl.Label>
+                <FormControl.Label _text={{
+                  color: 'white',
+                  fontSize: 'xl'
+                }}
+                  marginRight={'0'}
+                  width={'70%'}
+                >
+                  Bairro
+                </FormControl.Label>
+
+              </Stack>
+              <Stack
                 direction={'row'}
                 flex={'1'}
                 justifyContent={"space-between"}
                 space={'10%'}
-         
-              >  
-                  <Input
-                    width={'20%'}
-                    nativeID='nCasa'
-                    placeholderTextColor='gray.400'
-                    placeholder='Insira o número da casa'
-                    color='white'
-                    type='numeric'
-                    _hover={{
-                      color: 'black'
-                    }}
-                    value={nCasa}
-                    onChangeText={t => setnCasa(t)}
-                  />
-                  <Input
-                    width={'70%'}
-                    nativeID='bairro'
-                    placeholderTextColor='gray.400'
-                    placeholder='Insira o bairro'
-                    color='white'
-                    type='numeric'
-                    _hover={{
-                      color: 'black'
-                    }}
-                    value={bairro}
-                    onChangeText={t => setBairro(t)}
-                  />
-                </Stack>
-                
+              >
+                <Input
+                  width={'20%'}
+                  nativeID='nCasa'
+                  placeholderTextColor='gray.400'
+                  placeholder='Insira o número da casa'
+                  color='white'
+                  type='numeric'
+                  _hover={{
+                    color: 'black'
+                  }}
+                  value={nCasa}
+                  onChangeText={t => setnCasa(t)}
+                />
+                <Input
+                  width={'70%'}
+                  nativeID='bairro'
+                  placeholderTextColor='gray.400'
+                  placeholder='Insira o bairro'
+                  color='white'
+                  type='numeric'
+                  _hover={{
+                    color: 'black'
+                  }}
+                  value={bairro}
+                  onChangeText={t => setBairro(t)}
+                />
+              </Stack>
               <Stack
                 direction={'row'}
                 flex={'1'}
                 justifyContent={"space-between"}
                 space={'10%'}
                 marginTop={'15px'}
-              >  
-                  <FormControl.Label _text={{
-                      color: 'white',
-                      fontSize: 'xl'
-                      
-                    }}
-                    marginRight={'0'}
-                    width={'45%'}
-                  >
-                    Cidade
-                  </FormControl.Label>
-                  <FormControl.Label _text={{
-                      color: 'white',
-                      fontSize: 'xl'
-                      
-                    }}
-                    marginRight={'0'}
-                    width={'45%'}
-                  >
-                    Estado
-                  </FormControl.Label>
-                  
-                </Stack>
-                
-                <Stack
-                  direction={'row'}
-                  flex={'1'}
-                  justifyContent={"space-between"}
-                  space={'10%'}
-          
-                >  
-                  <Input
-                    width={'45%'}
-                    nativeID='cidade'
-                    placeholderTextColor='gray.400'
-                    placeholder='Insira a cidade'
-                    color='white'
-                    type='numeric'
-                    _hover={{
-                      color: 'black'
-                    }}
-                    value={cidade}
-                    onChangeText={t => setCidade(t)}
-                  />
-                  <Input
-                    width={'45%'}
-                    nativeID='estado'
-                    placeholderTextColor='gray.400'
-                    placeholder='Insira o estado'
-                    color='white'
-                    type='numeric'
-                    _hover={{
-                      color: 'black'
-                    }}
-                    value={estado}
-                    onChangeText={t => setEstado(t)}
-                  />
-                </Stack>
+              >
+                <FormControl.Label _text={{
+                  color: 'white',
+                  fontSize: 'xl'
+                }}
+                  marginRight={'0'}
+                  width={'45%'}
+                >
+                  Cidade
+                </FormControl.Label>
+                <FormControl.Label _text={{
+                  color: 'white',
+                  fontSize: 'xl'
+                }}
+                  marginRight={'0'}
+                  width={'45%'}
+                >
+                  Estado
+                </FormControl.Label>
+              </Stack>
+              <Stack
+                direction={'row'}
+                flex={'1'}
+                justifyContent={"space-between"}
+                space={'10%'}
+              >
+                <Input
+                  width={'45%'}
+                  nativeID='cidade'
+                  placeholderTextColor='gray.400'
+                  placeholder='Insira a cidade'
+                  color='white'
+                  type='numeric'
+                  _hover={{
+                    color: 'black'
+                  }}
+                  value={cidade}
+                  onChangeText={t => setCidade(t)}
+                />
+                <Input
+                  width={'45%'}
+                  nativeID='estado'
+                  placeholderTextColor='gray.400'
+                  placeholder='Insira o estado'
+                  color='white'
+                  type='numeric'
+                  _hover={{
+                    color: 'black'
+                  }}
+                  value={estado}
+                  onChangeText={t => setEstado(t)}
+                />
+              </Stack>
               <FormControl.Label _text={{
                 color: 'white',
                 fontSize: 'xl'
@@ -532,282 +493,79 @@ export const SignUpFinish = ({ navigation }: Props) => {
                 onChangeText={t => setFone(t)}
               />
               <Stack
-              direction={'row'}
-               flex={'1'}
-              justifyContent={"space-between"}
-              space={'20px'}
-              >           
-                  <Button
-                      onPress={() => wizard.current.prev()}
-                      flex={'1'}
-            
-                  >
+                direction={'row'}
+                flex={'1'}
+                justifyContent={"space-between"}
+                space={'20px'}
+              >
+                <Button
+                  onPress={() => wizard.current.prev()}
+                  flex={'1'}
+                >
                   Anterior
-                  </Button>
-              
-                  <Button
-                      onPress={() => wizard.current.next()}
-                      flex={'1'}
-              
-                  >
+                </Button>
+                <Button
+                  onPress={() => wizard.current.next()}
+                  flex={'1'}
+                >
                   Próximo
-                  </Button>
+                </Button>
               </Stack>
-
-    
-        
-    
             </Stack>
           </FormControl>
-          </Center>,
-      },      
-      {
-        content:     
-          <Center
-            flex={1}
-            minWidth={'100%'}
-          >
-            <Text
-              color={'white'}
-              fontSize='2em'
-              > {currentStep}. Preferências</Text>
+        </Center>,
+    },
+    {
+      content:
+        <Center
+          flex={1}
+          minWidth={'100%'}
+        >
+          <Text
+            color={'white'}
+            fontSize='2em'
+          > {currentStep}. Preferências</Text>
 
-            
-        <FormControl
-          p='3'
-          w={{
-            base: '100%',
-            sm: 400,
-      
-          }}>
-             
-          <Stack 
-            flexWrap={'wrap'}
-            justifyContent={'space-between'}
-            flexDirection={'row'}
-            flex={1}
-            minWidth={'100%'}
-          >
-          {/* <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-rugby" size={'3rem'} color="white" />               
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall
-              </Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>          
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>          
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center>
-            <Center flex={1}>
-              <TouchableOpacity
-                style={{backgroundColor: '#141820', borderRadius: 50,width:'4rem',height:'4rem',justifyContent:'center',alignItems:'center'}}
-              >
-                <MaterialIcons name="sports-handball" size={'3rem'} color="white" />
-              </TouchableOpacity>
-              <Text
-                color={'white'}
-                fontSize='1em'
-              >
-                HandBall</Text>
-            </Center> */}
+          <FormControl
+            p='3'
+            w={{
+              base: '100%',
+              sm: 400,
+            }}>
+            <Stack
+              flexWrap={'wrap'}
+              justifyContent={'space-between'}
+              flexDirection={'row'}
+              flex={1}
+              minWidth={'100%'}
+            >
             </Stack>
-            
-          
-            
-          <Example />
-           
-        
-
-
+            <Example />
             <Stack
               direction={'row'}
-           
               justifyContent={"space-between"}
               space={'20px'}
-              >           
-                  <Button
-                      onPress={() => wizard.current.prev()}
-                      flex={'1'}
-            
-                  >
-                  Anterior
-                  </Button>
-              
-                  <Button
-                                 onPress={async () => {
-                                  const res = await criarUsuario(email, password)
-                                  setRespostaDoSupabase(res)
-                                }}
-                      flex={'1'}
-              
-                  >
-                  Cadastrar-se
-                  </Button>
-              </Stack>
-              </FormControl>
-          
-       
-      </Center>,
-      },
+            >
+              <Button
+                onPress={() => wizard.current.prev()}
+                flex={'1'}
+              >
+                Anterior
+              </Button>
+
+              <Button
+                onPress={async () => {
+                  const res = await criarUsuario(email, password)
+                  setRespostaDoSupabase(res)
+                }}
+                flex={'1'}
+              >
+                Cadastrar-se
+              </Button>
+            </Stack>
+          </FormControl>
+        </Center>,
+    },
   ]
 
   useEffect(() => {
@@ -843,69 +601,59 @@ export const SignUpFinish = ({ navigation }: Props) => {
 
   return (
     <Center
-        flex={1}
-        bg='blueGray.800'
-        minHeight={'initial'}
-        minWidth={'100%'}
+      flex={1}
+      bg='blueGray.800'
+      minHeight={'initial'}
+      minWidth={'100%'}
     >
-        <SafeAreaView style={{ backgroundColor: "#FFF" }}>
+      <SafeAreaView style={{ backgroundColor: "#FFF" }}>
         <View
-            style={{
+          style={{
             justifyContent: "space-between",
             flexDirection: "row",
             backgroundColor: "#FFF",
             borderBottomColor: "#dedede",
             borderBottomWidth: 1,
-            }}>
-            {/* <Button disabled={isFirstStep} title="Prev" onPress={() => wizard.current.prev()}>Anterior</Button>
-            <Text>{currentStep + 1}. Tela</Text>
-            <Button disabled={isLastStep} title="Next" onPress={() => wizard.current.next()}>Proximo</Button> */}
+          }}>
         </View>
-        </SafeAreaView>
-        <View style={{ flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-            <Wizard
-                ref={wizard}
-                steps={stepList}
-                
-                isFirstStep={val => setIsFirstStep(val)}
-                isLastStep={val => setIsLastStep(val)}
-                onNext={() => {
-                console.log("Proxima Tela")
-                }}
-                onPrev={() => {
-                console.log("Tela Anterior")
-                }}
-                currentStep={({ currentStep, isLastStep, isFirstStep }) => {
-                setCurrentStep(currentStep)
-                }}
+      </SafeAreaView>
+      <View style={{ flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+        <Wizard
+          ref={wizard}
+          steps={stepList}
+          isFirstStep={val => setIsFirstStep(val)}
+          isLastStep={val => setIsLastStep(val)}
+          currentStep={({ currentStep }) => {
+            setCurrentStep(currentStep)
+          }}
+        />
+        <View style={{ flexDirection: "row", margin: 18, }}>
+          {stepList.map((_val, index) => (
+            <View
+              key={"step-indicator-" + index}
+              style={{
+                width: 10,
+                marginHorizontal: 6,
+                height: 10,
+                borderRadius: 5,
+                backgroundColor: index === currentStep ? "#ddc460" : "#000",
+              }}
             />
-            <View style={{ flexDirection: "row", margin: 18, }}>
-                {stepList.map((val, index) => (
-                <View
-                    key={"step-indicator-" + index}
-                    style={{
-                    width: 10,
-                    marginHorizontal: 6,
-                    height: 10,
-                    borderRadius: 5,
-                    backgroundColor: index === currentStep ? "#ddc460" : "#000",
-                    }}
-                />
-                ))}
-                </View>
-            </View>
-            <Stack direction='row' alignItems='center' alignSelf='center'
-            marginBottom={'20px'}>
-              <Text color={'white'}>
-                Já possui uma conta?
-              </Text>
-              <Button
-                variant='link'
-                onPress={() => navigation.navigate('SignIn')}
-              >
-                Faça login
-              </Button>
-            </Stack>
+          ))}
+        </View>
+      </View>
+      <Stack direction='row' alignItems='center' alignSelf='center'
+        marginBottom={'20px'}>
+        <Text color={'white'}>
+          Já possui uma conta?
+        </Text>
+        <Button
+          variant='link'
+          onPress={() => navigation.navigate('SignIn')}
+        >
+          Faça login
+        </Button>
+      </Stack>
     </Center>
   )
 }
