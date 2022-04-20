@@ -45,6 +45,7 @@ export const Home = ({ navigation }: Props) => {
           onPress={() => {
             (async function () {
               const error = await signOutUsuario()
+              removeSessaoLocalmente()
 
               if (error) {
                 toast.show({
@@ -56,7 +57,6 @@ export const Home = ({ navigation }: Props) => {
                 return
               }
 
-              removeSessaoLocalmente()
               navigation.navigate('SignIn')
             })()
           }}
