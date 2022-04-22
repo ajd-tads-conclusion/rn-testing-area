@@ -7,7 +7,7 @@ import { supabase } from '../../api/supabase'
 
 type Props = NativeStackScreenProps<TelasDaRotaDeEvento, 'TelaDoEvento'>
 
-type Evento = {
+export type Evento = {
   id: string,
   titulo: string,
   descricao: string,
@@ -15,7 +15,8 @@ type Evento = {
   data: string,
   horario: string,
   modalidade: string,
-  max_participantes: number
+  max_participantes: number,
+  is_event: boolean
 }
 
 export const TelaDoEvento = ({ route, navigation }: Props) => {

@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from '@expo/vector-icons'
 
 import { Home } from "../../screens/Home";
-import { Tela2 } from "../../screens/tela2";
+import { Tela2 } from "../../screens/Tela2";
 import { RotaDoEvento } from '../RotaDoEvento'
 import { IconeDaBarraInferior } from '../../components/IconeDaBarraInferior'
 
