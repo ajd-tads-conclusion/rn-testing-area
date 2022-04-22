@@ -11,7 +11,7 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { supabase } from '../../api/supabase'
-import { checarSessaoLocalmente, removeSessaoLocalmente, salvaSessaoLocalmente } from '../../routes/Auth/asyncStorage';
+import { checarSessaoLocalmente, removeSessaoLocalmente, salvaSessaoLocalmente } from '../../helpers/AsyncStorage/asyncStorage';
 import type { TelasDaRotaAuth } from '../../routes/Auth';
 import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth';
 import * as yup from 'yup';
@@ -53,7 +53,6 @@ export const SignIn = ({ navigation }: Props) => {
   useEffect(() => {
     if (respostaDoSupabase.user !== null) {
       toast.show({
-        status: 'success',
         title: 'Bem-vindo',
         description: 'Login efetuado com sucesso'
       })
@@ -75,7 +74,6 @@ export const SignIn = ({ navigation }: Props) => {
 
     if (respostaDoSupabase.error !== null) {
       toast.show({
-        status: 'error',
         title: 'Credenciais inválidas',
         description: 'Verifique os campos e tente novamente'
       })

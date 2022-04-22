@@ -6,12 +6,13 @@ import {
   Stack,
   Avatar,
   Pressable,
-  useToast
+  useToast,
+  Image
 } from 'native-base'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 import type { TelasDaRotaAuth } from '../../routes/Auth'
-import { removeSessaoLocalmente } from '../../routes/Auth/asyncStorage';
+import { removeSessaoLocalmente } from '../../helpers/AsyncStorage/asyncStorage';
 import { signOutUsuario } from '../../routes/Auth/supabaseAuth';
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'MainTabs'>
@@ -49,7 +50,6 @@ export const Home = ({ navigation }: Props) => {
 
               if (error) {
                 toast.show({
-                  status: 'error',
                   title: 'Tente novamente',
                   description: 'Ocorreu um erro ao fazer Logout, tente novamente'
                 })
@@ -61,17 +61,18 @@ export const Home = ({ navigation }: Props) => {
             })()
           }}
         >
-          <Avatar bg='amber.500'
-            size='7'
+          <Avatar
+            size={'md'}
+            bg="amber.500"
             source={{
-              uri: 'https://avatars.githubusercontent.com/u/80872981?v=4'
-            }}
-          >
+              uri: "https://github.com/ddanielsantos.png"
+            }}>
             RD
             <Avatar.Badge
-              bg='green.600'
+              size={7}
             />
           </Avatar>
+
         </Pressable>
       </Stack>
     </Box>
