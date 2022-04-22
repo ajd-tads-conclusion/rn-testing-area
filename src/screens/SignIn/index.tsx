@@ -33,7 +33,7 @@ export const SignIn = ({ navigation }: Props) => {
   const [respostaDoSupabase, setRespostaDoSupabase] = useState<AuthResponse>({ user: null, error: null })
   const toast = useToast()
 
-  const { control, handleSubmit, formState: { errors } } = useForm<Inputs>({
+  const { control, handleSubmit } = useForm<Inputs>({
     defaultValues: {
       email: '',
       password: ''
@@ -83,7 +83,6 @@ export const SignIn = ({ navigation }: Props) => {
   }, [respostaDoSupabase])
 
   const onSubmit = async (data: Inputs) => {
-    console.log(data)
     const { error, user } = await logarUsuario(data.email, data.password)
     setRespostaDoSupabase({ user, error })
   }
