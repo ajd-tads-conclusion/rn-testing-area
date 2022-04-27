@@ -1,12 +1,5 @@
 import React, { useEffect } from 'react'
-import {
-  Pressable,
-  Input,
-  Stack,
-  Icon,
-  FlatList,
-  Divider
-} from 'native-base'
+import { View, FlatList, TextInput, Pressable } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { CardEvento } from '../../components/CardEvento'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -45,60 +38,31 @@ export const Events = () => {
   }, [])
 
   return (
-    <Stack
-      bg='blueGray.800'
-      flex='1'
-      alignItems='center'
-    >
-      <Stack
-        direction='row'
-        space='26px'
-        px='15px'
-        alignSelf='center'
-        alignItems='center'
-        justifyContent='space-between'
-        minH='60px'
-        w={{
-          base: '100%',
-          sm: '450'
-        }}
-      >
-        <Input
-          flex='1'
+    <View>
+      <View>
+        <TextInput
           nativeID='search'
           placeholderTextColor='gray.400'
           placeholder='Pesquisar eventos, pessoas, organizações'
-          color='blueGray.800'
-          bg='blueGray.100'
-
-          type='e-mail'
-          _hover={{
-            color: 'blueGray.800'
-          }}
         />
 
         <Pressable
           onPress={() => alert('chamar drawer')}
         >
-          <Icon as={Feather} name='menu' color='white' size='7' />
+          <Feather name='menu' color='white' size={7} />
         </Pressable>
-      </Stack>
+      </View>
 
       <FlatList
-        px='5px'
-        marginBottom='60px'
-        w={{
-          base: '100%',
-          sm: '450'
-        }}
         data={eventos}
         ItemSeparatorComponent={() => {
           return (
-            <Divider
-              bg='blueGray.500'
-              my='5px'
-              w='95%'
-              alignSelf='center'
+            <View
+              style={{
+                height: 5,
+                width: '100%',
+                backgroundColor: 'red'
+              }}
             />
           )
         }}
@@ -107,6 +71,6 @@ export const Events = () => {
         }
       />
 
-    </Stack>
+    </View>
   )
 }

@@ -5,8 +5,8 @@ import { User } from '@supabase/supabase-js'
 import { supabase } from '../../api/supabase'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, Controller } from 'react-hook-form'
-import { Text, Stack, Input, Button, Radio } from 'native-base'
 import { dateRegex, timeRegex } from '../../helpers/regex'
+import { View, TextInput, Button, Text } from 'react-native'
 
 type InputEvento = Omit<Evento, 'id'>
 
@@ -26,8 +26,7 @@ const schema = yup.object({
   max_participantes: yup.number()
     .required('O número máximo de participantes é obrigatório')
     .min(2, 'O número máximo de participantes deve ser maior que 1')
-    .typeError('Apenas dígitos são aceitos neste campo'),
-  is_event: yup.boolean().required('A opção de encontro é obrigatória'),
+    .typeError('Apenas dígitos são aceitos neste campo')
 })
 
 export const Tela2 = () => {
@@ -69,25 +68,19 @@ export const Tela2 = () => {
   }
 
   return (
-    <Stack
-      bg='blueGray.800'
-      flex='1'
-      alignItems='center'
-    >
+    <View>
       <Controller
         control={control}
         name={'titulo'}
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
-              <Input
+              <TextInput
                 placeholder='Título'
-                bgColor={errors.titulo ? 'danger.300' : 'white'}
-                color={errors.titulo ? 'white' : 'black'}
                 value={value}
                 onChangeText={onChange}
               />
-              {errors.titulo && <Text color={'danger.500'}>{errors.titulo.message}</Text>}
+              {errors.titulo && <Text>{errors.titulo.message}</Text>}
             </>
           )
         }}
@@ -98,14 +91,12 @@ export const Tela2 = () => {
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
-              <Input
+              <TextInput
                 placeholder='Descrição'
-                bgColor={errors.descricao ? 'danger.300' : 'white'}
-                color={errors.descricao ? 'white' : 'black'}
                 value={value}
                 onChangeText={onChange}
               />
-              {errors.descricao && <Text color={'danger.500'}>{errors.descricao.message}</Text>}
+              {errors.descricao && <Text>{errors.descricao.message}</Text>}
             </>
           )
         }}
@@ -116,14 +107,12 @@ export const Tela2 = () => {
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
-              <Input
+              <TextInput
                 placeholder='Data'
-                bgColor={errors.data ? 'danger.300' : 'white'}
-                color={errors.data ? 'white' : 'black'}
                 value={value}
                 onChangeText={onChange}
               />
-              {errors.data && <Text color={'danger.500'}>{errors.data.message}</Text>}
+              {errors.data && <Text>{errors.data.message}</Text>}
             </>
           )
         }}
@@ -134,14 +123,12 @@ export const Tela2 = () => {
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
-              <Input
+              <TextInput
                 placeholder='Horário'
-                bgColor={errors.horario ? 'danger.300' : 'white'}
-                color={errors.horario ? 'white' : 'black'}
                 value={value}
                 onChangeText={onChange}
               />
-              {errors.horario && <Text color={'danger.500'}>{errors.horario.message}</Text>}
+              {errors.horario && <Text>{errors.horario.message}</Text>}
             </>
           )
         }}
@@ -152,14 +139,12 @@ export const Tela2 = () => {
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
-              <Input
+              <TextInput
                 placeholder='Modalidade'
-                bgColor={errors.modalidade ? 'danger.300' : 'white'}
-                color={errors.modalidade ? 'white' : 'black'}
                 value={value}
                 onChangeText={onChange}
               />
-              {errors.modalidade && <Text color={'danger.500'}>{errors.modalidade.message}</Text>}
+              {errors.modalidade && <Text>{errors.modalidade.message}</Text>}
             </>
           )
         }}
@@ -170,51 +155,21 @@ export const Tela2 = () => {
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
-              <Input
+              <TextInput
                 placeholder='Máximo de participantes'
-                bgColor={errors.max_participantes ? 'danger.300' : 'white'}
-                color={errors.max_participantes ? 'white' : 'black'}
                 value={!value ? '' : String(value)}
                 keyboardType={'numeric'}
                 onChangeText={onChange}
               />
-              {errors.max_participantes && <Text color={'danger.500'}>{errors.max_participantes.message}</Text>}
+              {errors.max_participantes && <Text>{errors.max_participantes.message}</Text>}
             </>
           )
         }}
       />
-
-      <Controller
-        control={control}
-        name={'is_event'}
-        render={({ field: { value, onChange }, formState: { errors } }) => {
-          return (
-            <>
-              <Radio.Group
-                name='eEncontro'
-                value={String(value)}
-                onChange={onChange}
-              // isDisabled={false}
-              >
-                <Radio value={'true'} >
-                  Sim
-                </Radio>
-                <Radio value={'false'}>
-                  Não
-                </Radio>
-              </Radio.Group>
-              {errors.is_event && <Text color={'danger.500'}>{errors.is_event.message}</Text>}
-            </>
-          )
-        }}
-      />
-
       <Button
-        variant={'solid'}
+        title='Criar evento'
         onPress={handleSubmit(criaNovoEvento)}
-      >
-        Criar evento
-      </Button>
-    </Stack>
+      />
+    </View>
   )
 }

@@ -1,19 +1,11 @@
 import React from 'react'
 import { Feather } from '@expo/vector-icons';
-import {
-  Box,
-  Icon,
-  Stack,
-  Avatar,
-  Pressable,
-  useToast,
-  Image
-} from 'native-base'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-
+import { Pressable, View } from 'react-native';
 import type { TelasDaRotaAuth } from '../../routes/Auth'
 import { removeSessaoLocalmente } from '../../helpers/AsyncStorage/asyncStorage';
 import { signOutUsuario } from '../../routes/Auth/supabaseAuth';
+import { useToast } from 'react-native-toast-notifications'
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'MainTabs'>
 
@@ -21,25 +13,12 @@ export const Home = ({ navigation }: Props) => {
   const toast = useToast()
 
   return (
-    <Box
-      flex='1'
-      bg='blueGray.800'
-      p='3'
-      alignItems='center'
-    >
-      <Stack
-        direction='row'
-        justifyContent='space-between'
-        alignItems='center'
-        w={{
-          base: '100%',
-          sm: '450'
-        }}
-      >
+    <View>
+      <View>
         <Pressable
           onPress={() => alert('a')}
         >
-          <Icon as={Feather} name='menu' color='white' size='7' />
+          <Feather name='menu' color='white' size={7} />
         </Pressable>
 
         <Pressable
@@ -49,10 +28,7 @@ export const Home = ({ navigation }: Props) => {
               removeSessaoLocalmente()
 
               if (error) {
-                toast.show({
-                  title: 'Tente novamente',
-                  description: 'Ocorreu um erro ao fazer Logout, tente novamente'
-                })
+                // toast.show('Tente novamente', {})
 
                 return
               }
@@ -61,20 +37,17 @@ export const Home = ({ navigation }: Props) => {
             })()
           }}
         >
-          <Avatar
-            size={'md'}
-            bg="amber.500"
-            source={{
-              uri: "https://github.com/ddanielsantos.png"
-            }}>
-            RD
-            <Avatar.Badge
-              size={7}
-            />
-          </Avatar>
-
+          <View
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: 15,
+              backgroundColor: 'red'
+            }}
+          />
         </Pressable>
-      </Stack>
-    </Box>
+
+      </View>
+    </View>
   )
 }

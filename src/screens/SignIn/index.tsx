@@ -1,13 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Center,
-  FormControl,
-  Input,
-  Button,
-  Stack,
-  Text,
-  useToast
-} from 'native-base';
 import { useForm, Controller } from 'react-hook-form';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { supabase } from '../../api/supabase'
@@ -16,6 +7,8 @@ import type { TelasDaRotaAuth } from '../../routes/Auth';
 import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useToast } from 'react-native-toast-notifications'
+import { TextInput, View, Text, Button } from 'react-native';
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignIn'>
 
@@ -52,9 +45,7 @@ export const SignIn = ({ navigation }: Props) => {
 
   useEffect(() => {
     if (respostaDoSupabase.user !== null) {
-      toast.show({
-        title: 'Bem-vindo',
-        description: 'Login efetuado com sucesso'
+      toast.show('Bem-vindo', {
       })
 
       const session = supabase.auth.session()
@@ -73,9 +64,7 @@ export const SignIn = ({ navigation }: Props) => {
     }
 
     if (respostaDoSupabase.error !== null) {
-      toast.show({
-        title: 'Credenciais inválidas',
-        description: 'Verifique os campos e tente novamente'
+      toast.show('Credenciais inválidas', {
       })
 
       return
@@ -88,76 +77,58 @@ export const SignIn = ({ navigation }: Props) => {
   }
 
   return (
-    <Center
-      flex={1}
-      bg='blueGray.800'
-    >
-      <FormControl
-        p='3'
-        w={{
-          base: '100%',
-          sm: 400
-        }}>
-        <Stack space='3'>
+    <View>
 
-          <Controller
-            control={control}
-            name={'email'}
-            render={({ field: { value, onChange }, formState: { errors } }) => {
-              return (
-                <>
-                  <Input
-                    placeholder='E-mail'
-                    bgColor={errors.email ? 'danger.300' : 'white'}
-                    color={errors.email ? 'white' : 'black'}
-                    value={value}
-                    onChangeText={onChange}
-                  />
-                  {errors.email && <Text color={'danger.500'}>{errors.email.message}</Text>}
-                </>
-              )
-            }}
-          />
-          <Controller
-            control={control}
-            name={'password'}
-            render={({ field: { value, onChange }, formState: { errors } }) => {
-              return (
-                <>
-                  <Input
-                    placeholder='Senha'
-                    bgColor={errors.password ? 'danger.300' : 'white'}
-                    color={errors.password ? 'white' : 'black'}
-                    value={value}
-                    type='password'
-                    onChangeText={onChange}
-                  />
-                  {errors.password && <Text color={'danger.500'}>{errors.password.message}</Text>}
-                </>
-              )
-            }}
-          />
+      <View >
+
+        <Controller
+          control={control}
+          name={'email'}
+          render={({ field: { value, onChange }, formState: { errors } }) => {
+            return (
+              <>
+                <TextInput
+                  placeholder='E-mail'
+                  value={value}
+                  onChangeText={onChange}
+                />
+                {errors.email && <Text >{errors.email.message}</Text>}
+              </>
+            )
+          }}
+        />
+        <Controller
+          control={control}
+          name={'password'}
+          render={({ field: { value, onChange }, formState: { errors } }) => {
+            return (
+              <>
+                <TextInput
+                  placeholder='Senha'
+                  value={value}
+                  onChangeText={onChange}
+                />
+                {errors.password && <Text >{errors.password.message}</Text>}
+              </>
+            )
+          }}
+        />
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          title='Entrar'
+        />
+
+        <View>
+          <Text>
+            Não possui uma conta?
+          </Text>
           <Button
-            onPress={handleSubmit(onSubmit)}
-          >
-            Entrar
-          </Button>
+            title='Cadastre-se'
+            onPress={() => navigation.navigate('SignUpFinish')}
+          />
+        </View>
 
-          <Stack direction='row' alignItems='center' alignSelf='center'
-          >
-            <Text color={'white'}>
-              Não possui uma conta?
-            </Text>
-            <Button
-              variant='link'
-              onPress={() => navigation.navigate('SignUpFinish')}
-            >
-              Cadastre-se
-            </Button>
-          </Stack>
-
-        </Stack>
-      </FormControl>
-    </Center>
+      </View>
+    </View>
   )
 }
