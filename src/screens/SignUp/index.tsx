@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Center,
-  FormControl,
-  Input,
-  Button,
-  Stack,
-  Text,
-  useToast
-} from 'native-base';
 
 import { AuthResponse, criarUsuario } from '../../routes/Auth/supabaseAuth';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { TelasDaRotaAuth } from '../../routes/Auth';
+import { useToast } from 'react-native-toast-notifications'
+import { View, Text, TextInput, Button } from 'react-native';
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignUp'>
 
@@ -23,111 +16,72 @@ export const SignUp = ({ navigation }: Props) => {
 
   useEffect(() => {
     if (respostaDoSupabase.user !== null) {
-      toast.show({
-        status: 'success',
-        title: 'Confirme o e-mail',
-        description: 'Clique no link que enviamos ao seu e-mail'
+      toast.show('Confirme o e-mail', {
       })
 
       return
     }
 
     if (respostaDoSupabase.error?.status === 429) {
-      toast.show({
-        status: 'error',
-        title: 'Tente novamente mais tarde'
-      })
+      toast.show('Tente novamente mais tarde', {})
 
       return
     }
 
     if (respostaDoSupabase.error !== null) {
-      toast.show({
-        status: 'error',
-        title: 'Credenciais inválidas',
-        description: 'Verifique os campos e tente novamente'
-      })
+      toast.show('Credenciais inválidas', {})
 
       return
     }
   }, [respostaDoSupabase])
 
   return (
-    <Center
-      flex={1}
-      bg='blueGray.800'
-    >
-      <FormControl
-        p='3'
-        w={{
-          base: '100%',
-          sm: 400
-        }}>
-        <Stack space='3'>
+    <View>
+      <View>
+        <View>
 
-          <FormControl.Label _text={{
-            color: 'white',
-            fontSize: 'xl'
-          }}>
+          <Text>
             E-mail
-          </FormControl.Label>
-          <Input
+          </Text>
+          <TextInput
             nativeID='email'
             placeholderTextColor='gray.400'
             placeholder='insira o seu e-mail'
-            color='white'
-            type='e-mail'
-            _hover={{
-              color: 'black'
-            }}
             value={email}
             onChangeText={t => setEmail(t)}
           />
 
-          <FormControl.Label _text={{
-            color: 'white',
-            fontSize: 'xl'
-          }}>
+          <Text >
             Senha
-          </FormControl.Label>
-          <Input
+          </Text>
+          <TextInput
             nativeID='pass'
             placeholderTextColor='gray.400'
             placeholder='insira sua senha'
-            color='white'
-            type='password'
-            _hover={{
-              color: 'black'
-            }}
             value={password}
             onChangeText={t => setPassword(t)}
           />
 
-          {/* TODO: chamar o supabase login aqui */}
           <Button
+            title='Cadastrar'
             onPress={async () => {
               const res = await criarUsuario(email, password)
               setRespostaDoSupabase(res)
             }}
-          >
-            Cadastrar-se
-          </Button>
+          />
 
-          <Stack direction='row' alignItems='center' alignSelf='center'
-          >
-            <Text color={'white'}>
+          <View>
+            <Text>
               Já possui uma conta?
             </Text>
             <Button
-              variant='link'
+              title='Entrar'
               onPress={() => navigation.navigate('SignIn')}
-            >
-              Faça login
-            </Button>
-          </Stack>
+            />
+          </View>
 
-        </Stack>
-      </FormControl>
-    </Center>
+        </View>
+      </View>
+    </View>
   )
 }

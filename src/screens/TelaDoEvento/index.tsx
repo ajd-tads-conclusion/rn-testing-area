@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Stack, Text, Pressable, Circle, Icon, Button, ScrollView, Skeleton } from 'native-base'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Feather } from '@expo/vector-icons'
 import { TelasDaRotaDeEvento } from '../../routes/RotaDoEvento'
 import { supabase } from '../../api/supabase'
-
+import { Button, Pressable, ScrollView, Text, View } from 'react-native'
 type Props = NativeStackScreenProps<TelasDaRotaDeEvento, 'TelaDoEvento'>
 
 export type Evento = {
@@ -55,32 +54,13 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
   }, [])
 
   return (
-    <Box
-      flex='1'
-      bg='blueGray.800'
-      alignContent='center'
-      justifyContent='center'
-    >
+    <View>
 
-      <Stack
-        direction='row'
-        space='26px'
-        px='15px'
-        alignSelf='center'
-        alignItems='center'
-        justifyContent='space-between'
-        minH='60px'
-        w={{
-          base: '100%',
-          sm: '450'
-        }}
-      >
+      <View>
         <Pressable
           onPress={() => navigation.navigate('Events')}
         >
-          <Circle
-            size='7'
-            bg='blueGray.300'
+          <View
           />
 
         </Pressable>
@@ -88,173 +68,99 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
         <Pressable
           onPress={() => alert('chamar drawer')}
         >
-          <Icon as={Feather} name='menu' color='white' size='7' />
+          <Feather name='menu' color='white' size={7} />
         </Pressable>
-      </Stack>
-      <ScrollView
-        mb='60px'
-      >
+      </View>
+      <ScrollView>
 
-        <Box
-          bg='blueGray.300'
-          rounded='sm'
-          mx='5px'
-          p='10px'
-        // marginTop='10px'
-        >
-          <Skeleton.Text
-            isLoaded={!loading}
-            lines={1}
+        <View>
+          <Text
           >
-            <Text color={BUTTON_COLOR}>
+            <Text>
               {evento?.titulo}
             </Text>
-          </Skeleton.Text>
+          </Text>
 
-          <Skeleton.Text
-            isLoaded={!loading}
-            lines={1}
-          >
+          <Text>
             <Text>
               {evento?.descricao}
             </Text>
-          </Skeleton.Text>
+          </Text>
 
-          <Box
-            bg='blueGray.400'
-            rounded='sm'
-            marginTop='10px'
-            p='10px'
-          >
+          <View>
 
-            <Stack
-              direction='row'
-              justifyContent='space-between'
-            >
+            <View>
               <Text>
                 Criado por
               </Text>
-              <Skeleton.Text
-                isLoaded={!loading}
-                lines={1}
-                flex={0.8}
-              >
-                <Text
-                  textAlign={'right'}
-                >
+              <Text>
+                <Text>
                   {evento?.criado_por}
                 </Text>
-              </Skeleton.Text>
-            </Stack>
+              </Text>
+            </View>
 
-            <Stack
-              direction='row'
-              justifyContent='space-between'
-            >
+            <View>
               <Text>
                 Data
               </Text>
 
-              <Skeleton.Text
-                isLoaded={!loading}
-                lines={1}
-                flex={0.8}
-              >
+              <Text>
                 <Text>
                   {evento?.data}
                 </Text>
-              </Skeleton.Text>
-            </Stack>
+              </Text>
+            </View>
 
-            <Stack
-              direction='row'
-              justifyContent='space-between'
-            >
+            <View>
               <Text>
                 Horário
               </Text>
 
-              <Skeleton.Text
-                isLoaded={!loading}
-                lines={1}
-                flex={0.8}
-              >
+              <Text>
                 <Text>
                   {evento?.horario}
                 </Text>
-              </Skeleton.Text>
-            </Stack>
+              </Text>
+            </View>
 
-            <Stack
-              direction='row'
-              justifyContent='space-between'
-            >
+            <View>
               <Text>
                 Modalidade
               </Text>
 
-              <Skeleton.Text
-                isLoaded={!loading}
-                lines={1}
-                flex={0.8}
-              >
+              <Text>
                 <Text>
                   {evento?.modalidade}
                 </Text>
-              </Skeleton.Text>
-            </Stack>
+              </Text>
+            </View>
 
-            <Stack
-              direction='row'
-              justifyContent='space-between'
-            >
+            <View>
               <Text>
                 Participantes
               </Text>
-              <Skeleton.Text
-                isLoaded={!loading}
-                lines={1}
-                flex={0.8}
-              >
+              <Text>
                 <Text>
                   {evento?.max_participantes}
                 </Text>
-              </Skeleton.Text>
-            </Stack>
+              </Text>
+            </View>
 
-          </Box>
+          </View>
 
-          <Stack
-            direction='row'
-            space='2'
-            mt='10px'
-          >
+          <View>
             <Button
-              variant='outline'
-              flex='1'
-              borderColor={BUTTON_COLOR}
-              _text={{
-                color: BUTTON_COLOR,
-                fontSize: 'xs'
-              }}
-            >
-              VER ORGANIZADOR
-            </Button>
+              title='Ver organizador'
+            />
 
             <Button
-              variant='solid'
-              flex='1'
-              bg={BUTTON_COLOR}
-              _text={{
-                fontSize: 'xs'
-              }}
-            >
-              INSCREVER-SE
-            </Button>
-          </Stack>
-        </Box>
+              title='Inscrever-se'
+            />
+          </View>
+        </View>
 
       </ScrollView>
-    </Box>
+    </View>
   )
 }

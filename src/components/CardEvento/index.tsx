@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Text, Stack, Button } from 'native-base'
 import { NavigationTelaDeEventos } from '../../screens/Events'
 import { useNavigation } from '@react-navigation/native'
 import { supabase } from '../../api/supabase'
+import { Text, View, Button } from 'react-native'
 
 type Props = {
   id: string
@@ -18,9 +18,6 @@ type DadosDoCardDeEvento = {
 export const CardEvento = (props: Props) => {
   const navigation = useNavigation<NavigationTelaDeEventos>()
   const [detalhes, setDetalhes] = useState<DadosDoCardDeEvento | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
-
-  const BUTTON_COLOR = 'red.500'
 
   useEffect(() => {
     let componenteCarregado = true
@@ -39,9 +36,7 @@ export const CardEvento = (props: Props) => {
         console.error(e)
       }
     }
-    setLoading(true)
     carregarDetalhes()
-    setLoading(false)
 
     return () => {
       componenteCarregado = false
@@ -49,16 +44,12 @@ export const CardEvento = (props: Props) => {
   }, [])
 
   return (
-    <Box
-      bg='blueGray.300'
-      rounded='sm'
-      p='10px'
-    >
-      <Text color={BUTTON_COLOR}>
+    <View>
+      <Text>
         {detalhes?.titulo || 'Carregando'}
       </Text>
 
-      <Text color='blueGray.800'>
+      <Text>
         {
           detalhes?.descricao
             ? detalhes.descricao.length > 100 ? detalhes.descricao.substring(0, 100) + '...' : detalhes.descricao
@@ -66,34 +57,17 @@ export const CardEvento = (props: Props) => {
         }
       </Text>
 
-      <Stack
-        direction='row'
-        space='2'
-      >
+      <View>
         <Button
-          variant='outline'
-          flex='1'
-          borderColor={BUTTON_COLOR}
-          _text={{
-            color: BUTTON_COLOR
-          }}
+          title="Lembrar mais tarde"
           onPress={() => alert('chamar toast e enviar notificação depois de x tempo')}
-        >
-          Lembrar mais tarde
-        </Button>
+        />
 
         <Button
-          variant='solid'
-          flex='1'
-          bg={BUTTON_COLOR}
-          _focus={{
-            bg: 'red.600'
-          }}
+          title="Ver mais"
           onPress={() => navigation.navigate('TelaDoEvento', { id: props.id })}
-        >
-          Acessar evento
-        </Button>
-      </Stack>
-    </Box>
+        />
+      </View>
+    </View>
   )
 }
