@@ -2,7 +2,6 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { RotaPrincipal } from '../RotaPrincipal'
-// import { Home } from '../../screens/Home'
 import { SignUp } from '../../screens/SignUp'
 import { SignUpFinish } from '../../screens/SignUpFinish'
 import { SignIn } from '../../screens/SignIn'
