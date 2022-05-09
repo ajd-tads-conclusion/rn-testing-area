@@ -30,8 +30,8 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
       setLoading(true)
       const { data, error } =
         await supabase
-          .from<Evento>('evento')
-          .select('titulo,descricao,data,horario,modalidade,max_participantes,criado_por')
+          .from<Evento>('event')
+          .select('title,description,date,time,modality,max_participants,created_by')
           .eq('id', id)
           .limit(1)
       if (error) {
