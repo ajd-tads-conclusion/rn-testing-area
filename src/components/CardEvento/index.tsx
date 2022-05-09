@@ -10,9 +10,9 @@ type Props = {
 
 type DadosDoCardDeEvento = {
   id: string,
-  titulo: string,
-  descricao: string,
-  data: string
+  title: string,
+  description: string,
+  date: string
 }
 
 export const CardEvento = (props: Props) => {
@@ -25,7 +25,7 @@ export const CardEvento = (props: Props) => {
 
     async function carregarDetalhes() {
       try {
-        const { data, error } = await supabase.from<DadosDoCardDeEvento>('evento').select('id,descricao,titulo,data').eq('id', props.id).limit(1)
+        const { data, error } = await supabase.from<DadosDoCardDeEvento>('event').select('id,description,title,date').eq('id', props.id).limit(1)
 
         if (error) {
           return
@@ -46,13 +46,13 @@ export const CardEvento = (props: Props) => {
   return (
     <View>
       <Text>
-        {detalhes?.titulo || 'Carregando'}
+        {detalhes?.title || 'Carregando'}
       </Text>
 
       <Text>
         {
-          detalhes?.descricao
-            ? detalhes.descricao.length > 100 ? detalhes.descricao.substring(0, 100) + '...' : detalhes.descricao
+          detalhes?.description
+            ? detalhes.description.length > 100 ? detalhes.description.substring(0, 100) + '...' : detalhes.description
             : 'Carregando'
         }
       </Text>

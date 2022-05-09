@@ -8,13 +8,13 @@ type Props = NativeStackScreenProps<TelasDaRotaDeEvento, 'TelaDoEvento'>
 
 export type Evento = {
   id: string,
-  titulo: string,
-  descricao: string,
-  criado_por: string,
-  data: string,
-  horario: string,
-  modalidade: string,
-  max_participantes: number,
+  title: string,
+  description: string,
+  created_by: string,
+  date: string,
+  time: string,
+  modality: string,
+  max_participants: number,
   is_event: boolean
 }
 
@@ -22,7 +22,6 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
   const [evento, setEvento] = useState<Evento | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const { id } = route.params
-  const BUTTON_COLOR = 'red.500'
 
   useEffect(() => {
     let componenteCarregado = true
@@ -77,13 +76,13 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
           <Text
           >
             <Text>
-              {evento?.titulo}
+              {evento?.title}
             </Text>
           </Text>
 
           <Text>
             <Text>
-              {evento?.descricao}
+              {evento?.description}
             </Text>
           </Text>
 
@@ -95,7 +94,7 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
               </Text>
               <Text>
                 <Text>
-                  {evento?.criado_por}
+                  {evento?.created_by}
                 </Text>
               </Text>
             </View>
@@ -107,7 +106,7 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
 
               <Text>
                 <Text>
-                  {evento?.data}
+                  {evento?.date}
                 </Text>
               </Text>
             </View>
@@ -119,7 +118,7 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
 
               <Text>
                 <Text>
-                  {evento?.horario}
+                  {evento?.time}
                 </Text>
               </Text>
             </View>
@@ -131,7 +130,7 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
 
               <Text>
                 <Text>
-                  {evento?.modalidade}
+                  {evento?.modality}
                 </Text>
               </Text>
             </View>
@@ -142,7 +141,7 @@ export const TelaDoEvento = ({ route, navigation }: Props) => {
               </Text>
               <Text>
                 <Text>
-                  {evento?.max_participantes}
+                  {evento?.max_participants}
                 </Text>
               </Text>
             </View>

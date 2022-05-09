@@ -11,9 +11,9 @@ import { View, TextInput, Button, Text } from 'react-native'
 type InputEvento = Omit<Evento, 'id'>
 
 const schema = yup.object({
-  titulo: yup.string()
+  title: yup.string()
     .required('O título é obrigatório'),
-  descricao: yup.string()
+  description: yup.string()
     .required('A descrição é obrigatória'),
   data: yup.string()
     .matches(dateRegex, 'A data deve estar no formato DD/MM/AAAA')
@@ -21,9 +21,9 @@ const schema = yup.object({
   horario: yup.string()
     .matches(timeRegex, 'O horário deve estar no formato HH:MM')
     .required('O horário é obrigatório'),
-  modalidade: yup.string()
-    .required('A modalidade é obrigatória'),
-  max_participantes: yup.number()
+  modality: yup.string()
+    .required('A modality é obrigatória'),
+  max_participants: yup.number()
     .required('O número máximo de participantes é obrigatório')
     .min(2, 'O número máximo de participantes deve ser maior que 1')
     .typeError('Apenas dígitos são aceitos neste campo')
@@ -32,11 +32,11 @@ const schema = yup.object({
 export const Tela2 = () => {
   const { control, handleSubmit, reset } = useForm<InputEvento>({
     defaultValues: {
-      titulo: '',
-      descricao: '',
-      data: '',
-      modalidade: '',
-      max_participantes: 0,
+      title: '',
+      description: '',
+      date: '',
+      modality: '',
+      max_participants: 0,
       is_event: false,
     },
     resolver: yupResolver(schema)
@@ -45,19 +45,19 @@ export const Tela2 = () => {
   const { id: userId } = supabase.auth.user() as User
 
   const podeCriarEvento = async (): Promise<boolean> => {
-    const { data, error } = await supabase.from('perfil_usuario').select('pode_criar_evento').eq('id', userId).limit(1)
+    const { data, error } = await supabase.from('user_profile').select('can_create_event').eq('id', userId).limit(1)
     if (data) return data[0].pode_criar_evento
 
     return false
   }
 
   const criaNovoEvento = async (evento: InputEvento) => {
-    const data = evento.data.split('/').reverse().join('-')
+    const date = evento.date.split('/').reverse().join('-')
 
-    const { error } = await supabase.from<InputEvento>('evento').insert({
+    const { error } = await supabase.from<InputEvento>('event').insert({
       ...evento,
-      data,
-      criado_por: userId
+      date,
+      created_by: userId
     })
 
     if (!error) {
@@ -71,7 +71,7 @@ export const Tela2 = () => {
     <View>
       <Controller
         control={control}
-        name={'titulo'}
+        name={'title'}
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
@@ -80,14 +80,14 @@ export const Tela2 = () => {
                 value={value}
                 onChangeText={onChange}
               />
-              {errors.titulo && <Text>{errors.titulo.message}</Text>}
+              {errors.title && <Text>{errors.title.message}</Text>}
             </>
           )
         }}
       />
       <Controller
         control={control}
-        name={'descricao'}
+        name={'description'}
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
@@ -96,14 +96,14 @@ export const Tela2 = () => {
                 value={value}
                 onChangeText={onChange}
               />
-              {errors.descricao && <Text>{errors.descricao.message}</Text>}
+              {errors.description && <Text>{errors.description.message}</Text>}
             </>
           )
         }}
       />
       <Controller
         control={control}
-        name={'data'}
+        name={'date'}
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
@@ -112,14 +112,14 @@ export const Tela2 = () => {
                 value={value}
                 onChangeText={onChange}
               />
-              {errors.data && <Text>{errors.data.message}</Text>}
+              {errors.date && <Text>{errors.date.message}</Text>}
             </>
           )
         }}
       />
       <Controller
         control={control}
-        name={'horario'}
+        name={'time'}
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
@@ -128,14 +128,14 @@ export const Tela2 = () => {
                 value={value}
                 onChangeText={onChange}
               />
-              {errors.horario && <Text>{errors.horario.message}</Text>}
+              {errors.time && <Text>{errors.time.message}</Text>}
             </>
           )
         }}
       />
       <Controller
         control={control}
-        name={'modalidade'}
+        name={'modality'}
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
@@ -144,14 +144,14 @@ export const Tela2 = () => {
                 value={value}
                 onChangeText={onChange}
               />
-              {errors.modalidade && <Text>{errors.modalidade.message}</Text>}
+              {errors.modality && <Text>{errors.modality.message}</Text>}
             </>
           )
         }}
       />
       <Controller
         control={control}
-        name={'max_participantes'}
+        name={'max_participants'}
         render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
@@ -161,7 +161,7 @@ export const Tela2 = () => {
                 keyboardType={'numeric'}
                 onChangeText={onChange}
               />
-              {errors.max_participantes && <Text>{errors.max_participantes.message}</Text>}
+              {errors.max_participants && <Text>{errors.max_participants.message}</Text>}
             </>
           )
         }}

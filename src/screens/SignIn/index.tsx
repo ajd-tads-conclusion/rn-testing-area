@@ -124,7 +124,7 @@ export const SignIn = ({ navigation }: Props) => {
           </Text>
           <Button
             title='Cadastre-se'
-            onPress={() => navigation.navigate('SignUpFinish')}
+            onPress={() => navigation.navigate('SignUp')}
           />
         </View>
 
