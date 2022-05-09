@@ -22,7 +22,7 @@ export const Events = () => {
     let componenteCarregado = true
 
     async function carregarPosts() {
-      const { data, error } = await supabase.from<DadosDoCardDeEvento>('evento').select('titulo,descricao,data,id')
+      const { data, error } = await supabase.from<DadosDoCardDeEvento>('event').select('title,description,date,id')
       if (error) {
         return
       }
