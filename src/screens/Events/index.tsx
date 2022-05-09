@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import { View, FlatList, TextInput, Pressable } from 'react-native'
+import { View, FlatList, Pressable } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { CardEvento } from '../../components/CardEvento'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { TelasDaRotaDeEvento } from '../../routes/RotaDoEvento'
 import { supabase } from '../../api/supabase'
+import { BarraDePesquisa } from '../../components/BarraDePesquisa'
 
 export type NavigationTelaDeEventos = NativeStackScreenProps<TelasDaRotaDeEvento, 'Events'>['navigation']
 
@@ -38,18 +39,23 @@ export const Events = () => {
   }, [])
 
   return (
-    <View>
-      <View>
-        <TextInput
-          nativeID='search'
-          placeholderTextColor='gray.400'
-          placeholder='Pesquisar eventos, pessoas, organizações'
-        />
-
+    <View
+      style={{
+        backgroundColor: 'pink'
+      }}
+    >
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+      >
+        <BarraDePesquisa />
         <Pressable
           onPress={() => alert('chamar drawer')}
         >
-          <Feather name='menu' color='white' size={7} />
+          <Feather name='menu' color='black' size={25} />
         </Pressable>
       </View>
 
