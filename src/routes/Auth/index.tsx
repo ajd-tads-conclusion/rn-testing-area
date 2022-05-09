@@ -16,7 +16,13 @@ const Stack = createNativeStackNavigator<TelasDaRotaAuth>()
 
 export const Auth = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={{
+        colors: {
+          background: '#1e293b',
+        }
+      }}
+    >
       <Stack.Navigator
         initialRouteName='SignIn'
         screenOptions={{ headerShown: false }}

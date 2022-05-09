@@ -68,7 +68,11 @@ export const Tela2 = () => {
   }
 
   return (
-    <View>
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
       <Controller
         control={control}
         name={'title'}

@@ -37,6 +37,7 @@ export const RotaPrincipal = () => {
         headerShown: false,
         tabBarStyle: {
           height: 44,
+          backgroundColor: 'white',
           borderTopWidth: 0,
           position: 'absolute',
           bottom: 8,

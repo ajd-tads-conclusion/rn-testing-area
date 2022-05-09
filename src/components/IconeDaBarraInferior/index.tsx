@@ -1,12 +1,12 @@
-import React, { 
-  useEffect, 
-  useState 
+import React, {
+  useEffect,
+  useState
 } from 'react'
-import { 
-  TouchableOpacity, 
-  ViewStyle, 
-  StyleSheet, 
-  GestureResponderEvent 
+import {
+  TouchableOpacity,
+  ViewStyle,
+  StyleSheet,
+  GestureResponderEvent
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { animarMudancaDeEstilo } from '../../helpers/animarMudancaDeEstilo'
@@ -27,7 +27,7 @@ type Props = {
   accessibilityState?: any
 }
 
-export const IconeDaBarraInferior = ({item, onPress, accessibilityState} : Props) => {
+export const IconeDaBarraInferior = ({ item, onPress, accessibilityState }: Props) => {
   const focused = accessibilityState.selected
   const [iconeEstaAtivo, setIconeAtivo] = useState<boolean>(false)
 
@@ -47,7 +47,7 @@ export const IconeDaBarraInferior = ({item, onPress, accessibilityState} : Props
 
   const posicaoAnimada = animarMudancaDeEstilo({
     from: 0,
-    to: -20, 
+    to: -20,
     bool: iconeEstaAtivo,
     duration: 350,
     property: 'marginTop',
@@ -56,21 +56,12 @@ export const IconeDaBarraInferior = ({item, onPress, accessibilityState} : Props
 
   const bordaAnimada = animarMudancaDeEstilo({
     from: 4,
-    to: 10, 
+    to: 10,
     bool: iconeEstaAtivo,
     duration: 350,
     property: 'borderRadius',
     bezierValues: [0.17, 0.67, 0.74, 1.58]
   })
-
-  // const bgAnimado = animarMudancaDeEstilo({
-  //   from: '#1e293b',
-  //   to: '#161a22',
-  //   bool: iconeEstaAtivo,
-  //   duration: 350,
-  //   property: 'backgroundColor',
-  //   bezierValues: [0.17, 0.67, 0.74, 1.58]
-  // })
 
   return (
     <TouchableOpacity
