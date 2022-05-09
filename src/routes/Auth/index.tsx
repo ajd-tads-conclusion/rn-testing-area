@@ -1,10 +1,9 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-
-import { RotaPrincipal } from '../RotaPrincipal'
 import { SignUp } from '../../screens/SignUp'
 import { SignIn } from '../../screens/SignIn'
+import { RotaPrincipal } from '../RotaPrincipal'
 import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 export type TelasDaRotaAuth = {
   MainTabs: undefined,

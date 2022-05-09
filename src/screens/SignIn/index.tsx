@@ -1,14 +1,14 @@
+import * as yup from 'yup';
+import { supabase } from '../../api/supabase'
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { supabase } from '../../api/supabase'
-import { checarSessaoLocalmente, removeSessaoLocalmente, salvaSessaoLocalmente } from '../../helpers/AsyncStorage/asyncStorage';
-import type { TelasDaRotaAuth } from '../../routes/Auth';
-import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import type { TelasDaRotaAuth } from '../../routes/Auth';
 import { useToast } from 'react-native-toast-notifications'
 import { TextInput, View, Text, Button } from 'react-native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth';
+import { checarSessaoLocalmente, removeSessaoLocalmente, salvaSessaoLocalmente } from '../../helpers/AsyncStorage/asyncStorage';
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignIn'>
 
