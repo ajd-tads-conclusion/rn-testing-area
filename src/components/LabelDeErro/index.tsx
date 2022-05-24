@@ -3,7 +3,7 @@ import { Text } from 'react-native'
 import { COLORS } from '../../theme/colors'
 
 type Props = {
-  campo?: {
+  campo: {
     message?: string
   }
 }
