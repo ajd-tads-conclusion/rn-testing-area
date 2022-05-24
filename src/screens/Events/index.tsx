@@ -75,9 +75,12 @@ export const Events = () => {
           return (
             <View
               style={{
-                height: 5,
-                width: '100%',
-                backgroundColor: COLORS.debug
+                height: 2,
+                width: '90%',
+                alignSelf: 'center',
+                borderRadius: 5,
+                marginVertical: 10,
+                backgroundColor: COLORS.secondary
               }}
             />
           )

@@ -51,7 +51,7 @@ export const CardEvento = (props: Props) => {
         borderColor: COLORS.white,
         borderWidth: 1,
         margin: 10,
-        marginTop: 0,
+        marginVertical: 0,
         borderRadius: 5
       }}
     >
