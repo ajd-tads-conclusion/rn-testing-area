@@ -5,4 +5,5 @@ export const COLORS = {
   white: '#ffffff',
   black: '#000000',
   debug: '#ff0000',
+  error: '#ff9797',
 }
