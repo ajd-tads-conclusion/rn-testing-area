@@ -50,13 +50,22 @@ export const Events = () => {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
+          margin: 10,
+          padding: 10,
+          borderRadius: 5,
+          backgroundColor: COLORS.secondary,
+          borderColor: COLORS.white,
+          borderWidth: 1
         }}
       >
         <BarraDePesquisa />
         <Pressable
-          onPress={() => alert('chamar drawer')}
+          onPress={() => alert('fazer pesquisa')}
+          style={{
+            marginLeft: 10
+          }}
         >
-          <Feather name='menu' color='black' size={25} />
+          <Feather name='search' color={COLORS.white} size={20} />
         </Pressable>
       </View>
 

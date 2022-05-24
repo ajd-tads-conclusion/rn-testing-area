@@ -47,10 +47,11 @@ export const CardEvento = (props: Props) => {
   return (
     <View
       style={{
-        backgroundColor: COLORS.tertiary,
-        borderColor: COLORS.black,
+        backgroundColor: COLORS.secondary,
+        borderColor: COLORS.white,
         borderWidth: 1,
         margin: 10,
+        marginTop: 0,
         borderRadius: 5
       }}
     >
@@ -94,8 +95,6 @@ export const CardEvento = (props: Props) => {
             backgroundColor: COLORS.white,
             borderRadius: 5,
             flex: 1,
-            borderColor: COLORS.black,
-            borderWidth: 1,
             flexShrink: 0,
             padding: 10
           }}
@@ -104,7 +103,8 @@ export const CardEvento = (props: Props) => {
             style={{
               fontSize: 15,
               fontWeight: 'bold',
-              textAlign: 'center'
+              textAlign: 'center',
+              color: COLORS.secondary
             }}
           >
             Lembrar mais tarde
@@ -114,9 +114,9 @@ export const CardEvento = (props: Props) => {
         <Pressable
           onPress={() => navigation.navigate('TelaDoEvento', { id: props.id })}
           style={{
-            backgroundColor: COLORS.secondary,
+            backgroundColor: COLORS.tertiary,
             borderRadius: 5,
-            borderColor: COLORS.black,
+            borderColor: COLORS.white,
             borderWidth: 1,
             flexShrink: 1,
             padding: 10,
