@@ -6,6 +6,7 @@ import type { TelasDaRotaAuth } from '../../routes/Auth'
 import { removeSessaoLocalmente } from '../../helpers/AsyncStorage/asyncStorage';
 import { signOutUsuario } from '../../routes/Auth/supabaseAuth';
 import { useToast } from 'react-native-toast-notifications'
+import { COLORS } from '../../theme/colors';
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'MainTabs'>
 
@@ -42,7 +43,7 @@ export const Home = ({ navigation }: Props) => {
               width: 30,
               height: 30,
               borderRadius: 15,
-              backgroundColor: 'red'
+              backgroundColor: COLORS.debug
             }}
           />
         </Pressable>

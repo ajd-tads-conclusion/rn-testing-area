@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Dimensions } from 'react-native'
+import { COLORS } from '../../theme/colors'
 
 type Props = {
   children: React.ReactNode
@@ -13,7 +14,7 @@ export const Container = (props: Props) => {
       style={{
         flex: 1,
         width: width,
-        backgroundColor: '#1e293b'
+        backgroundColor: COLORS.primary
       }}
     >
       <View
@@ -21,7 +22,7 @@ export const Container = (props: Props) => {
           alignSelf: 'center',
           flex: 1,
           width: width < 375 ? width : 375,
-          backgroundColor: '#fff',
+          backgroundColor: COLORS.white,
         }}
       >
         {props.children}

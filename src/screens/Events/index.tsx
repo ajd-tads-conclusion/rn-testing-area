@@ -6,6 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { TelasDaRotaDeEvento } from '../../routes/RotaDoEvento'
 import { supabase } from '../../api/supabase'
 import { BarraDePesquisa } from '../../components/BarraDePesquisa'
+import { COLORS } from '../../theme/colors'
 
 export type NavigationTelaDeEventos = NativeStackScreenProps<TelasDaRotaDeEvento, 'Events'>['navigation']
 
@@ -41,7 +42,7 @@ export const Events = () => {
   return (
     <View
       style={{
-        backgroundColor: 'pink'
+        // backgroundColor: COLORS.debug
       }}
     >
       <View
@@ -67,7 +68,7 @@ export const Events = () => {
               style={{
                 height: 5,
                 width: '100%',
-                backgroundColor: 'red'
+                backgroundColor: COLORS.debug
               }}
             />
           )

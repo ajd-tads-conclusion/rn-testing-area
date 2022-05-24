@@ -17,6 +17,7 @@ import { AuthResponse, criarUsuario } from '../../routes/Auth/supabaseAuth';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { TelasDaRotaAuth } from '../../routes/Auth';
 import Wizard from "react-native-wizard";
+import { COLORS } from '../../theme/colors';
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignUpFinish'>
 
@@ -606,13 +607,13 @@ export const SignUpFinish = ({ navigation }: Props) => {
       minHeight={'initial'}
       minWidth={'100%'}
     >
-      <SafeAreaView style={{ backgroundColor: "#FFF" }}>
+      <SafeAreaView style={{ backgroundColor: COLORS.white }}>
         <View
           style={{
             justifyContent: "space-between",
             flexDirection: "row",
-            backgroundColor: "#FFF",
-            borderBottomColor: "#dedede",
+            backgroundColor: COLORS.white,
+            // borderBottomColor: "#dedede",
             borderBottomWidth: 1,
           }}>
         </View>
@@ -636,7 +637,7 @@ export const SignUpFinish = ({ navigation }: Props) => {
                 marginHorizontal: 6,
                 height: 10,
                 borderRadius: 5,
-                backgroundColor: index === currentStep ? "#ddc460" : "#000",
+                backgroundColor: index === currentStep ? COLORS.white : COLORS.black,
               }}
             />
           ))}

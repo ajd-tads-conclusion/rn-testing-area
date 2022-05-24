@@ -5,13 +5,14 @@ import { ToastProvider } from 'react-native-toast-notifications'
 
 import { Auth } from "./src/routes/Auth";
 import { Container } from "./src/components/Container";
+import { COLORS } from "./src/theme/colors";
 
 export default function App() {
   return (
     <ToastProvider>
       <StatusBar
         style="light"
-        backgroundColor="#1e293b"
+        backgroundColor={COLORS.primary}
         translucent={false}
       />
       <Container>

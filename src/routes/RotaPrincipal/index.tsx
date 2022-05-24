@@ -6,6 +6,7 @@ import { Home } from "../../screens/Home";
 import { Tela2 } from "../../screens/Tela2";
 import { RotaDoEvento } from '../RotaDoEvento'
 import { IconeDaBarraInferior } from '../../components/IconeDaBarraInferior'
+import { COLORS } from "../../theme/colors";
 
 type IconeDoIonicons = keyof typeof Ionicons.glyphMap
 
@@ -37,7 +38,7 @@ export const RotaPrincipal = () => {
         headerShown: false,
         tabBarStyle: {
           height: 44,
-          backgroundColor: 'white',
+          backgroundColor: COLORS.white,
           borderTopWidth: 0,
           position: 'absolute',
           bottom: 8,

@@ -12,6 +12,7 @@ import Animated from 'react-native-reanimated'
 import { animarMudancaDeEstilo } from '../../helpers/animarMudancaDeEstilo'
 import { PropsIconeBarraInferior } from '../../routes/RotaPrincipal'
 import { Ionicons } from '@expo/vector-icons'
+import { COLORS } from '../../theme/colors'
 
 const styles = StyleSheet.create({
   container: {
@@ -38,8 +39,8 @@ export const IconeDaBarraInferior = ({ item, onPress, accessibilityState }: Prop
   const estiloInicial: ViewStyle = {
     width: 30,
     height: 30,
-    borderColor: 'white',
-    backgroundColor: '#1e293b',
+    borderColor: COLORS.white,
+    backgroundColor: COLORS.primary,
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center'
