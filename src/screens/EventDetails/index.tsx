@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Feather } from '@expo/vector-icons'
-import { TelasDaRotaDeEvento } from '../../routes/RotaDoEvento'
+import { EventRouteScreens } from '../../routes/EventRoute'
 import { supabase } from '../../api/supabase'
 import { Button, Pressable, ScrollView, Text, View } from 'react-native'
-type Props = NativeStackScreenProps<TelasDaRotaDeEvento, 'TelaDoEvento'>
+type Props = NativeStackScreenProps<EventRouteScreens, 'EventDetails'>
 
 export type Evento = {
   id: string,
@@ -18,7 +18,7 @@ export type Evento = {
   is_event: boolean
 }
 
-export const TelaDoEvento = ({ route, navigation }: Props) => {
+export const EventDetails = ({ route, navigation }: Props) => {
   const [evento, setEvento] = useState<Evento | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const { id } = route.params

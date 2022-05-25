@@ -1,15 +1,14 @@
 import React from 'react'
 import { SignUp } from '../../screens/SignUp'
 import { SignIn } from '../../screens/SignIn'
-import { RotaPrincipal } from '../RotaPrincipal'
+import { Main } from '../Main'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 export type TelasDaRotaAuth = {
   MainTabs: undefined,
   SignIn: undefined,
-  SignUp: undefined,
-  SignUpFinish: undefined
+  SignUp: undefined
 }
 
 const Stack = createNativeStackNavigator<TelasDaRotaAuth>()
@@ -27,7 +26,7 @@ export const Auth = () => {
         initialRouteName='SignIn'
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen component={RotaPrincipal} name='MainTabs' />
+        <Stack.Screen component={Main} name='MainTabs' />
         <Stack.Screen component={SignIn} name='SignIn' />
         <Stack.Screen component={SignUp} name='SignUp' />
       </Stack.Navigator>

@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { animarMudancaDeEstilo } from '../../helpers/animarMudancaDeEstilo'
-import { PropsIconeBarraInferior } from '../../routes/RotaPrincipal'
+import { PropsIconeBarraInferior } from '../../routes/Main'
 import { Ionicons } from '@expo/vector-icons'
 import { COLORS } from '../../theme/colors'
 

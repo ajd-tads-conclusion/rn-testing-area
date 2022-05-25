@@ -3,12 +3,12 @@ import { View, FlatList, Pressable } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { CardEvento } from '../../components/CardEvento'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { TelasDaRotaDeEvento } from '../../routes/RotaDoEvento'
+import { EventRouteScreens } from '../../routes/EventRoute'
 import { supabase } from '../../api/supabase'
 import { BarraDePesquisa } from '../../components/BarraDePesquisa'
 import { COLORS } from '../../theme/colors'
 
-export type NavigationTelaDeEventos = NativeStackScreenProps<TelasDaRotaDeEvento, 'Events'>['navigation']
+export type NavigationTelaDeEventos = NativeStackScreenProps<EventRouteScreens, 'Events'>['navigation']
 
 type DadosDoCardDeEvento = {
   id: string,

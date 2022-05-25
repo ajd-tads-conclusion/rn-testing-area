@@ -1,6 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
-import { Evento } from '../TelaDoEvento'
+import { Evento } from '../EventDetails'
 import { User } from '@supabase/supabase-js'
 import { supabase } from '../../api/supabase'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -29,7 +29,7 @@ const schema = yup.object({
     .typeError('Apenas dígitos são aceitos neste campo')
 })
 
-export const Tela2 = () => {
+export const Profile = () => {
   const { control, handleSubmit, reset } = useForm<InputEvento>({
     defaultValues: {
       title: '',

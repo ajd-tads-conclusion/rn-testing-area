@@ -1,25 +1,25 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Events } from '../../screens/Events'
-import { TelaDoEvento } from '../../screens/TelaDoEvento'
+import { EventDetails } from '../../screens/EventDetails'
 
-export type TelasDaRotaDeEvento = {
+export type EventRouteScreens = {
   Events: undefined,
-  TelaDoEvento: {
+  EventDetails: {
     id: string
   }
 }
 
-const EventoStack = createNativeStackNavigator<TelasDaRotaDeEvento>()
+const EventoStack = createNativeStackNavigator<EventRouteScreens>()
 
-export const RotaDoEvento = () => {
+export const EventRoute = () => {
   return (
     <EventoStack.Navigator
       initialRouteName='Events'
       screenOptions={{ headerShown: false }}
     >
       <EventoStack.Screen name='Events' component={Events} />
-      <EventoStack.Screen name='TelaDoEvento' component={TelaDoEvento} />
+      <EventoStack.Screen name='EventDetails' component={EventDetails} />
     </EventoStack.Navigator>
   )
 }
