@@ -8,7 +8,7 @@ type Props = {
   }
 }
 
-export const LabelDeErro = ({ campo }: Props) => {
+export const ErrorLabel = ({ campo }: Props) => {
   return (
     <Text
       style={{

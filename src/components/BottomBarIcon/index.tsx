@@ -28,7 +28,7 @@ type Props = {
   accessibilityState?: any
 }
 
-export const IconeDaBarraInferior = ({ item, onPress, accessibilityState }: Props) => {
+export const BottomBarIcon = ({ item, onPress, accessibilityState }: Props) => {
   const focused = accessibilityState.selected
   const [iconeEstaAtivo, setIconeAtivo] = useState<boolean>(false)
 

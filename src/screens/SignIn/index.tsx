@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { TelasDaRotaAuth } from '../../routes/Auth';
-import { LabelDeErro } from '../../components/LabelDeErro';
+import { ErrorLabel } from '../../components/ErrorLabel';
 import { useToast } from 'react-native-toast-notifications'
 import { TextInput, View, Text, Pressable } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -140,7 +140,7 @@ export const SignIn = ({ navigation }: Props) => {
                   }}
                 />
                 {
-                  errors.email && <LabelDeErro campo={errors.email} />
+                  errors.email && <ErrorLabel campo={errors.email} />
                 }
               </>
             )
@@ -183,7 +183,7 @@ export const SignIn = ({ navigation }: Props) => {
                 />
 
                 {
-                  errors.password && <LabelDeErro campo={errors.password} />
+                  errors.password && <ErrorLabel campo={errors.password} />
                 }
               </>
             )

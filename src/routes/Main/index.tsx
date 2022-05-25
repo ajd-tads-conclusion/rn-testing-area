@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { Home } from "../../screens/Home";
 import { Profile } from "../../screens/Profile";
 import { EventRoute } from '../EventRoute'
-import { IconeDaBarraInferior } from '../../components/IconeDaBarraInferior'
+import { BottomBarIcon } from '../../components/BottomBarIcon'
 import { COLORS } from "../../theme/colors";
 
 type IconeDoIonicons = keyof typeof Ionicons.glyphMap
@@ -55,7 +55,7 @@ export const Main = () => {
           <Tab.Screen key={index} name={item.rota} component={item.componente}
             options={{
               tabBarShowLabel: false,
-              tabBarButton: (props) => <IconeDaBarraInferior {...props} item={item} />
+              tabBarButton: (props) => <BottomBarIcon {...props} item={item} />
             }}
           />
         )

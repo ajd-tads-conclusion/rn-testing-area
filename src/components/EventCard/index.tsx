@@ -16,7 +16,7 @@ type DadosDoCardDeEvento = {
   date: string
 }
 
-export const CardEvento = (props: Props) => {
+export const EventCard = (props: Props) => {
   const navigation = useNavigation<NavigationTelaDeEventos>()
   const [detalhes, setDetalhes] = useState<DadosDoCardDeEvento | null>(null)
 

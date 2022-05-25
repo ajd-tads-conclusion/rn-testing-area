@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { View, FlatList, Pressable } from 'react-native'
 import { Feather } from '@expo/vector-icons'
-import { CardEvento } from '../../components/CardEvento'
+import { EventCard } from '../../components/EventCard'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { EventRouteScreens } from '../../routes/EventRoute'
 import { supabase } from '../../api/supabase'
-import { BarraDePesquisa } from '../../components/BarraDePesquisa'
+import { SearchBar } from '../../components/SearchBar'
 import { COLORS } from '../../theme/colors'
 
 export type NavigationTelaDeEventos = NativeStackScreenProps<EventRouteScreens, 'Events'>['navigation']
@@ -58,7 +58,7 @@ export const Events = () => {
           borderWidth: 1
         }}
       >
-        <BarraDePesquisa />
+        <SearchBar />
         <Pressable
           onPress={() => alert('fazer pesquisa')}
           style={{
@@ -86,7 +86,7 @@ export const Events = () => {
           )
         }}
         renderItem={
-          ({ item }) => <CardEvento id={item.id} />
+          ({ item }) => <EventCard id={item.id} />
         }
       />
 

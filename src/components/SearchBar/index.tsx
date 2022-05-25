@@ -2,7 +2,7 @@ import React from 'react'
 import { TextInput } from 'react-native'
 import { COLORS } from '../../theme/colors'
 
-export const BarraDePesquisa = () => {
+export const SearchBar = () => {
   return (
     <TextInput
       nativeID='search'
