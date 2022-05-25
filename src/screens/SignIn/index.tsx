@@ -5,11 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { TelasDaRotaAuth } from '../../routes/Auth';
-import { ErrorLabel } from '../../components/ErrorLabel';
 import { useToast } from 'react-native-toast-notifications'
-import { TextInput, View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth';
+import { TextInput } from '../../components/TextInput';
 import {
   checarSessaoLocalmente,
   removeSessaoLocalmente,
@@ -122,27 +122,11 @@ export const SignIn = ({ navigation }: Props) => {
           name={'email'}
           render={({ field: { value, onChange }, formState: { errors } }) => {
             return (
-              <>
-                <TextInput
-                  placeholder='E-mail'
-                  value={value}
-                  onChangeText={onChange}
-                  placeholderTextColor={COLORS.white + '9C'}
-                  style={{
-                    backgroundColor: COLORS.tertiary,
-                    borderColor: errors.email && COLORS.error,
-                    borderWidth: errors.email && 1,
-                    borderRadius: 5,
-                    marginBottom: 10,
-                    padding: 10,
-                    color: errors.email ? COLORS.error : COLORS.white,
-                    fontWeight: 'bold'
-                  }}
-                />
-                {
-                  errors.email && <ErrorLabel campo={errors.email} />
-                }
-              </>
+              <TextInput
+                value={value}
+                onChange={onChange}
+                errors={errors.email}
+              />
             )
           }}
         />
@@ -163,29 +147,11 @@ export const SignIn = ({ navigation }: Props) => {
           name={'password'}
           render={({ field: { value, onChange }, formState: { errors } }) => {
             return (
-              <>
-                <TextInput
-                  placeholder='Senha'
-                  value={value}
-                  onChangeText={onChange}
-                  placeholderTextColor={COLORS.white + '9C'}
-                  secureTextEntry={true}
-                  style={{
-                    backgroundColor: COLORS.tertiary,
-                    borderColor: errors.password && COLORS.error,
-                    borderWidth: errors.password && 1,
-                    borderRadius: 5,
-                    marginBottom: 10,
-                    padding: 10,
-                    color: errors.password ? COLORS.error : COLORS.white,
-                    fontWeight: 'bold'
-                  }}
-                />
-
-                {
-                  errors.password && <ErrorLabel campo={errors.password} />
-                }
-              </>
+              <TextInput
+                value={value}
+                onChange={onChange}
+                errors={errors.password}
+              />
             )
           }}
         />
