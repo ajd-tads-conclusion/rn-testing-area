@@ -6,13 +6,13 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { COLORS } from '../../theme/colors'
 
-export type TelasDaRotaAuth = {
+export type AuthScreenParams = {
   MainTabs: undefined,
   SignIn: undefined,
   SignUp: undefined
 }
 
-const Stack = createNativeStackNavigator<TelasDaRotaAuth>()
+const Stack = createNativeStackNavigator<AuthScreenParams>()
 
 export const Auth = () => {
   return (

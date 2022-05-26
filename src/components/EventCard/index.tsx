@@ -112,7 +112,7 @@ export const EventCard = (props: Props) => {
         </Pressable>
 
         <Pressable
-          onPress={() => navigation.navigate('TelaDoEvento', { id: props.id })}
+          onPress={() => navigation.navigate('EventDetails', { id: props.id })}
           style={{
             backgroundColor: COLORS.tertiary,
             borderRadius: 5,

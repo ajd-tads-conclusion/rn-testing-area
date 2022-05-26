@@ -6,7 +6,7 @@ export type AuthResponse = {
   error: ApiError | null
 }
 
-export async function criarUsuario(email: string, password: string): Promise<AuthResponse> {
+export async function createUser(email: string, password: string): Promise<AuthResponse> {
   const { user, error } = await supabase.auth.signUp({
     email: email,
     password: password
@@ -15,7 +15,7 @@ export async function criarUsuario(email: string, password: string): Promise<Aut
   return { user, error }
 }
 
-export async function logarUsuario(email: string, password: string): Promise<AuthResponse> {
+export async function loginUser(email: string, password: string): Promise<AuthResponse> {
   const { user, error } = await supabase.auth.signIn({
     email: email,
     password: password
@@ -24,7 +24,7 @@ export async function logarUsuario(email: string, password: string): Promise<Aut
   return { user, error }
 }
 
-export async function signOutUsuario() {
+export async function signOutUser() {
   const { error } = await supabase.auth.signOut()
 
   return error

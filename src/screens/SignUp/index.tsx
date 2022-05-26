@@ -3,40 +3,40 @@ import { Link } from '../../components/Link'
 import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable } from 'react-native'
 import { TextInput } from '../../components/TextInput'
-import type { TelasDaRotaAuth } from '../../routes/Auth'
+import type { AuthScreenParams } from '../../routes/Auth'
 import { useToast } from 'react-native-toast-notifications'
-import { AuthResponse, criarUsuario } from '../../routes/Auth/supabaseAuth'
+import { AuthResponse, createUser } from '../../routes/Auth/supabaseAuth'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignUp'>
+type Props = NativeStackScreenProps<AuthScreenParams, 'SignUp'>
 
 export const SignUp = ({ navigation }: Props) => {
   const [email, setEmail] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState<string>('')
-  const [respostaDoSupabase, setRespostaDoSupabase] = useState<AuthResponse>({ user: null, error: null })
+  const [supabaseResponse, setSupabaseResponse] = useState<AuthResponse>({ user: null, error: null })
   const toast = useToast()
 
   useEffect(() => {
-    if (respostaDoSupabase.user !== null) {
+    if (supabaseResponse.user !== null) {
       toast.show('Confirme o e-mail', {
       })
 
       return
     }
 
-    if (respostaDoSupabase.error?.status === 429) {
+    if (supabaseResponse.error?.status === 429) {
       toast.show('Tente novamente mais tarde', {})
 
       return
     }
 
-    if (respostaDoSupabase.error !== null) {
+    if (supabaseResponse.error !== null) {
       toast.show('Credenciais inválidas', {})
 
       return
     }
-  }, [respostaDoSupabase])
+  }, [supabaseResponse])
 
   return (
     <View
@@ -89,9 +89,9 @@ export const SignUp = ({ navigation }: Props) => {
         <Pressable
           disabled={loading}
           onPress={async () => {
-            const res = await criarUsuario(email, password)
+            const res = await createUser(email, password)
             setLoading(true)
-            setRespostaDoSupabase(res)
+            setSupabaseResponse(res)
             setLoading(false)
           }}
           style={{

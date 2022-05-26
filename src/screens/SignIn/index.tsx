@@ -7,9 +7,9 @@ import { View, Text, Pressable } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TextInput } from '../../components/TextInput'
-import type { TelasDaRotaAuth } from '../../routes/Auth'
+import type { AuthScreenParams } from '../../routes/Auth'
 import { useToast } from 'react-native-toast-notifications'
-import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth'
+import { AuthResponse, loginUser } from '../../routes/Auth/supabaseAuth'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import {
   checkSessionLocally,
@@ -17,7 +17,7 @@ import {
   saveSessionLocally
 } from '../../helpers/AsyncStorage/asyncStorage'
 
-type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignIn'>
+type Props = NativeStackScreenProps<AuthScreenParams, 'SignIn'>
 
 type Inputs = {
   email: string,
@@ -89,7 +89,7 @@ export const SignIn = ({ navigation }: Props) => {
   const onSubmit = async (data: Inputs) => {
     setLoading(true)
 
-    const { error, user } = await logarUsuario(data.email, data.password)
+    const { error, user } = await loginUser(data.email, data.password)
 
     setSupabaseResponse({ user, error })
     setLoading(false)
