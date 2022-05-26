@@ -3,7 +3,7 @@ import { Feather } from '@expo/vector-icons';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Pressable, View } from 'react-native';
 import type { TelasDaRotaAuth } from '../../routes/Auth'
-import { removeSessaoLocalmente } from '../../helpers/AsyncStorage/asyncStorage';
+import { deleteLocalSession } from '../../helpers/AsyncStorage/asyncStorage';
 import { signOutUsuario } from '../../routes/Auth/supabaseAuth';
 import { useToast } from 'react-native-toast-notifications'
 import { COLORS } from '../../theme/colors';
@@ -26,7 +26,7 @@ export const Home = ({ navigation }: Props) => {
           onPress={() => {
             (async function () {
               const error = await signOutUsuario()
-              removeSessaoLocalmente()
+              deleteLocalSession()
 
               if (error) {
                 // toast.show('Tente novamente', {})
@@ -43,7 +43,7 @@ export const Home = ({ navigation }: Props) => {
               width: 30,
               height: 30,
               borderRadius: 15,
-              backgroundColor: COLORS.debug
+              backgroundColor: COLORS.error1
             }}
           />
         </Pressable>

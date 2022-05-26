@@ -1,5 +1,5 @@
 import { Session } from '@supabase/supabase-js';
-import { salvaSessaoLocalmente, checarSessaoLocalmente, removeSessaoLocalmente } from '../asyncStorage'
+import { saveSessionLocally, checkSessionLocally, deleteLocalSession } from '../asyncStorage'
 
 
 
@@ -21,20 +21,20 @@ describe('Async Storage', () => {
   }
 
   it('should save session', async () => {
-    await salvaSessaoLocalmente(session)
-    const sessao = await checarSessaoLocalmente()
+    await saveSessionLocally(session)
+    const sessao = await checkSessionLocally()
 
     expect(sessao).toEqual(session)
   })
   it('checks session is retrieved', async () => {
-    const res = await checarSessaoLocalmente()
+    const res = await checkSessionLocally()
 
     expect(res).toStrictEqual(session);
   })
 
   it('checks session is removed', async () => {
-    await removeSessaoLocalmente()
-    const res = await checarSessaoLocalmente()
+    await deleteLocalSession()
+    const res = await checkSessionLocally()
 
     expect(res).toStrictEqual(null);
   })

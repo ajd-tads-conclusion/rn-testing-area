@@ -12,9 +12,9 @@ import { useToast } from 'react-native-toast-notifications'
 import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import {
-  checarSessaoLocalmente,
-  removeSessaoLocalmente,
-  salvaSessaoLocalmente
+  checkSessionLocally,
+  deleteLocalSession,
+  saveSessionLocally
 } from '../../helpers/AsyncStorage/asyncStorage'
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignIn'>
@@ -30,7 +30,7 @@ const schema = yup.object({
 })
 
 export const SignIn = ({ navigation }: Props) => {
-  const [respostaDoSupabase, setRespostaDoSupabase] = useState<AuthResponse>({ user: null, error: null })
+  const [supabaseResponse, setSupabaseResponse] = useState<AuthResponse>({ user: null, error: null })
   const [loading, setLoading] = useState(false)
   const toast = useToast()
 
@@ -43,16 +43,18 @@ export const SignIn = ({ navigation }: Props) => {
   })
 
   useEffect(() => {
-    (async function () {
-      const sessao = await checarSessaoLocalmente()
-      if (sessao) {
+    async function redirectIfHasSession() {
+      const session = await checkSessionLocally()
+      if (session) {
         navigation.navigate('MainTabs')
       }
-    })()
+    }
+
+    redirectIfHasSession()
   }, [])
 
   useEffect(() => {
-    if (respostaDoSupabase.user !== null) {
+    if (supabaseResponse.user !== null) {
       toast.show('Bem-vindo', {
       })
 
@@ -60,9 +62,9 @@ export const SignIn = ({ navigation }: Props) => {
 
       if (session) {
         try {
-          salvaSessaoLocalmente(session)
+          saveSessionLocally(session)
         } catch {
-          removeSessaoLocalmente()
+          deleteLocalSession()
         } finally {
           navigation.navigate('MainTabs')
         }
@@ -71,20 +73,25 @@ export const SignIn = ({ navigation }: Props) => {
       return
     }
 
-    if (respostaDoSupabase.error !== null) {
+    if (supabaseResponse.error !== null) {
       toast.show('Credenciais inválidas', {
+        type: 'custom_danger',
+        data: {
+          description: 'verifique os campos e tente novamente'
+        },
+        placement: 'top'
       })
 
       return
     }
-  }, [respostaDoSupabase])
+  }, [supabaseResponse])
 
   const onSubmit = async (data: Inputs) => {
     setLoading(true)
 
     const { error, user } = await logarUsuario(data.email, data.password)
 
-    setRespostaDoSupabase({ user, error })
+    setSupabaseResponse({ user, error })
     setLoading(false)
   }
 
