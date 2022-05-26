@@ -1,20 +1,21 @@
-import * as yup from 'yup';
-import { COLORS } from '../../theme/colors';
+import * as yup from 'yup'
+import { COLORS } from '../../theme/colors'
 import { supabase } from '../../api/supabase'
-import React, { useEffect, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import type { TelasDaRotaAuth } from '../../routes/Auth';
+import { Link } from '../../components/Link'
+import React, { useEffect, useState } from 'react'
+import { View, Text, Pressable } from 'react-native'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { TextInput } from '../../components/TextInput'
+import type { TelasDaRotaAuth } from '../../routes/Auth'
 import { useToast } from 'react-native-toast-notifications'
-import { View, Text, Pressable } from 'react-native';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth';
-import { TextInput } from '../../components/TextInput';
+import { AuthResponse, logarUsuario } from '../../routes/Auth/supabaseAuth'
+import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import {
   checarSessaoLocalmente,
   removeSessaoLocalmente,
   salvaSessaoLocalmente
-} from '../../helpers/AsyncStorage/asyncStorage';
+} from '../../helpers/AsyncStorage/asyncStorage'
 
 type Props = NativeStackScreenProps<TelasDaRotaAuth, 'SignIn'>
 
@@ -125,6 +126,7 @@ export const SignIn = ({ navigation }: Props) => {
               <TextInput
                 value={value}
                 onChange={onChange}
+                placeholder={'Insira o seu email aqui'}
                 errors={errors.email}
               />
             )
@@ -149,6 +151,7 @@ export const SignIn = ({ navigation }: Props) => {
             return (
               <TextInput
                 value={value}
+                placeholder={'Insira a sua senha aqui'}
                 onChange={onChange}
                 errors={errors.password}
               />
@@ -187,19 +190,10 @@ export const SignIn = ({ navigation }: Props) => {
             }}
           >
             Não possui uma conta?
-            <Pressable
+            <Link
               onPress={() => navigation.navigate('SignUp')}
-            >
-              <Text
-                style={{
-                  padding: 5,
-                  textDecorationLine: 'underline',
-                  textDecorationStyle: 'solid',
-                }}
-              >
-                Cadastre-se
-              </Text>
-            </Pressable>
+              title={'Crie uma aqui'}
+            />
 
           </Text>
         </View>
