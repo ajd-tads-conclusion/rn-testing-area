@@ -12,7 +12,7 @@ export const ErrorLabel = ({ campo }: Props) => {
   return (
     <Text
       style={{
-        color: COLORS.error,
+        color: COLORS.error2,
         fontSize: 12,
         marginBottom: 5
       }}

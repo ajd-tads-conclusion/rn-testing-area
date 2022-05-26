@@ -22,12 +22,12 @@ export const TextInput = ({ value, onChange, errors: field, placeholder }: Props
         placeholderTextColor={COLORS.white + '9C'}
         style={{
           backgroundColor: COLORS.tertiary,
-          borderColor: field && COLORS.error,
+          borderColor: field && COLORS.error2,
           borderWidth: field && 1,
           borderRadius: 5,
           marginBottom: 10,
           padding: 10,
-          color: field ? COLORS.error : COLORS.white,
+          color: field ? COLORS.error2 : COLORS.white,
           fontWeight: 'bold'
         }}
       />

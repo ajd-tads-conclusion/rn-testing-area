@@ -4,6 +4,6 @@ export const COLORS = {
   tertiary: '#5576aa',
   white: '#ffffff',
   black: '#000000',
-  debug: '#ff0000',
-  error: '#ff9797',
+  error1: '#ff0000',
+  error2: '#ff9797',
 }
