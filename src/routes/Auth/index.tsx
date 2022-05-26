@@ -4,6 +4,7 @@ import { SignIn } from '../../screens/SignIn'
 import { Main } from '../Main'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { COLORS } from '../../theme/colors'
 
 export type TelasDaRotaAuth = {
   MainTabs: undefined,
@@ -16,9 +17,15 @@ const Stack = createNativeStackNavigator<TelasDaRotaAuth>()
 export const Auth = () => {
   return (
     <NavigationContainer
+      // TODO: #24 finish theme config
       theme={{
         colors: {
-          background: '#1e293b',
+          background: COLORS.primary,
+          notification: COLORS.primary,
+          text: COLORS.white,
+          card: COLORS.primary,
+          border: COLORS.primary,
+          primary: COLORS.primary,
         }
       }}
     >
