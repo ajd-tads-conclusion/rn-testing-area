@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { NavigationTelaDeEventos } from '../../screens/Events'
-import { useNavigation } from '@react-navigation/native'
+import React, {
+  useEffect,
+  useState
+} from 'react'
+import { COLORS } from '../../theme/colors'
 import { supabase } from '../../api/supabase'
 import { Text, View, Pressable } from 'react-native'
-import { COLORS } from '../../theme/colors'
+import { useNavigation } from '@react-navigation/native'
+import { NavigationTelaDeEventos } from '../../screens/Events'
 
 type Props = {
   id: string
 }
 
-type DadosDoCardDeEvento = {
+type EventCardData = {
   id: string,
   title: string,
   description: string,
@@ -18,29 +21,29 @@ type DadosDoCardDeEvento = {
 
 export const EventCard = (props: Props) => {
   const navigation = useNavigation<NavigationTelaDeEventos>()
-  const [detalhes, setDetalhes] = useState<DadosDoCardDeEvento | null>(null)
+  const [details, setDetails] = useState<EventCardData | null>(null)
 
   useEffect(() => {
-    let componenteCarregado = true
+    let componentMounted = true
 
-
-    async function carregarDetalhes() {
+    async function fetchDetails() {
       try {
-        const { data, error } = await supabase.from<DadosDoCardDeEvento>('event').select('id,description,title,date').eq('id', props.id).limit(1)
+        const { data, error } = await supabase.from<EventCardData>('event').select('id,description,title,date').eq('id', props.id).limit(1)
 
         if (error) {
           return
         }
 
-        if (componenteCarregado && data) setDetalhes(data[0])
+        if (componentMounted && data) setDetails(data[0])
       } catch (e) {
         console.error(e)
       }
     }
-    carregarDetalhes()
+
+    fetchDetails()
 
     return () => {
-      componenteCarregado = false
+      componentMounted = false
     }
   }, [])
 
@@ -63,7 +66,7 @@ export const EventCard = (props: Props) => {
           color: COLORS.white
         }}
       >
-        {detalhes?.title || 'Carregando'}
+        {details?.title || 'Carregando'}
       </Text>
 
       <Text
@@ -74,8 +77,8 @@ export const EventCard = (props: Props) => {
         }}
       >
         {
-          detalhes?.description
-            ? detalhes.description.length > 100 ? detalhes.description.substring(0, 100) + '...' : detalhes.description
+          details?.description
+            ? details.description.length > 100 ? details.description.substring(0, 100) + '...' : details.description
             : 'Carregando'
         }
       </Text>

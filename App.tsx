@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 import 'react-native-url-polyfill/auto'
-import { StatusBar } from "expo-status-bar";
+import { Auth } from './src/routes/Auth'
+import { StatusBar } from 'expo-status-bar'
+import { COLORS } from './src/theme/colors'
+import { Container, ErrorToast } from './src/components'
 import { ToastProvider } from 'react-native-toast-notifications'
-import { Auth } from "./src/routes/Auth";
-import { Container } from "./src/components/Container";
-import { COLORS } from "./src/theme/colors";
-import { ErrorToast } from "./src/components/ErrorToast";
+
 
 export default function App() {
   return (
@@ -16,7 +16,7 @@ export default function App() {
       }}
     >
       <StatusBar
-        style="light"
+        style='light'
         backgroundColor={COLORS.primary}
         translucent={false}
       />
@@ -24,5 +24,5 @@ export default function App() {
         <Auth />
       </Container>
     </ToastProvider>
-  );
+  )
 }

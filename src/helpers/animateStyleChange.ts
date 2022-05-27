@@ -1,24 +1,24 @@
-import { ViewStyle } from "react-native";
-import { useAnimatedStyle, withTiming, Easing } from "react-native-reanimated";
+import { ViewStyle } from 'react-native';
+import { useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated';
 
 type StylesheetProperty = keyof ViewStyle
 
 type AnimationProperties = {
-  from: number | string, 
-  to: string | number, 
-  bool: boolean, 
-  property: StylesheetProperty, 
-  duration: number, 
+  from: number | string,
+  to: string | number,
+  bool: boolean,
+  property: StylesheetProperty,
+  duration: number,
   bezierValues: number[]
 }
 
-export function animarMudancaDeEstilo({ 
-  from, 
-  to, 
-  bool, 
-  property, 
-  duration, 
-  bezierValues 
+export function animateStyleChange({
+  from,
+  to,
+  bool,
+  property,
+  duration,
+  bezierValues
 }: AnimationProperties) {
   // se estiver ativo, anima o valor de destino para o to, senão, anima o valor para o from 
   const value = bool ? to : from

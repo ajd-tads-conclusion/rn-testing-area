@@ -1,4 +1,4 @@
-import { supabase } from "../../api/supabase"
+import { supabase } from '../../api/supabase'
 import type { User, ApiError } from '@supabase/supabase-js'
 
 export type AuthResponse = {

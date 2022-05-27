@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SUPA_URL, SUPA_KEY } from '@env'

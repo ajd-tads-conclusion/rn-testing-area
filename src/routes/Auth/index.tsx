@@ -1,10 +1,10 @@
 import React from 'react'
+import { Main } from '../Main'
+import { COLORS } from '../../theme/colors'
 import { SignUp } from '../../screens/SignUp'
 import { SignIn } from '../../screens/SignIn'
-import { Main } from '../Main'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { COLORS } from '../../theme/colors'
 
 export type AuthScreenParams = {
   MainTabs: undefined,

@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import { View, FlatList, Pressable } from 'react-native'
-import { Feather } from '@expo/vector-icons'
-import { EventCard } from '../../components/EventCard'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { EventRouteScreens } from '../../routes/EventRoute'
-import { supabase } from '../../api/supabase'
-import { SearchBar } from '../../components/SearchBar'
 import { COLORS } from '../../theme/colors'
+import { Feather } from '@expo/vector-icons'
+import { supabase } from '../../api/supabase'
+import { EventCard, SearchBar } from '../../components'
+import { View, FlatList, Pressable } from 'react-native'
+import { EventRouteScreens } from '../../routes/EventRoute'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 export type NavigationTelaDeEventos = NativeStackScreenProps<EventRouteScreens, 'Events'>['navigation']
 
@@ -42,7 +41,7 @@ export const Events = () => {
   return (
     <View
       style={{
-        // backgroundColor: COLORS.debug
+        flex: 1
       }}
     >
       <View
@@ -71,6 +70,11 @@ export const Events = () => {
 
       <FlatList
         data={eventos}
+        style={{
+          borderColor: COLORS.error1,
+          borderWidth: 1,
+          paddingBottom: 44 + 16
+        }}
         ItemSeparatorComponent={() => {
           return (
             <View

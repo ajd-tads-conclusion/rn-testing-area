@@ -1,34 +1,33 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from '@expo/vector-icons'
-
-import { Home } from "../../screens/Home";
-import { Profile } from "../../screens/Profile";
+import React from 'react'
+import { Home } from '../../screens/Home'
 import { EventRoute } from '../EventRoute'
-import { BottomBarIcon } from '../../components/BottomBarIcon'
-import { COLORS } from "../../theme/colors";
+import { COLORS } from '../../theme/colors'
+import { Ionicons } from '@expo/vector-icons'
+import { Profile } from '../../screens/Profile'
+import { BottomBarIcon } from '../../components'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-type IconeDoIonicons = keyof typeof Ionicons.glyphMap
+type IoniconsType = keyof typeof Ionicons.glyphMap
 
-export type TelasDaRotaPrincipal = {
+export type MainRouteScreenParams = {
   Home: undefined,
   EventRoute: undefined,
   Profile: undefined
 }
 
-const Tab = createBottomTabNavigator<TelasDaRotaPrincipal>()
+const Tab = createBottomTabNavigator<MainRouteScreenParams>()
 
-export type PropsIconeBarraInferior = {
-  rota: keyof TelasDaRotaPrincipal,
-  componente: any,
-  iconeAtivo: IconeDoIonicons,
-  iconeInativo: IconeDoIonicons
+export type BottomNavIconProps = {
+  route: keyof MainRouteScreenParams,
+  component: any,
+  activeIcon: IoniconsType,
+  inactiveIcon: IoniconsType
 }
 
-const TabArr: PropsIconeBarraInferior[] = [
-  { rota: 'EventRoute', componente: EventRoute, iconeAtivo: 'calendar', iconeInativo: 'calendar-outline' },
-  { rota: 'Home', componente: Home, iconeAtivo: 'home', iconeInativo: 'home-outline' },
-  { rota: 'Profile', componente: Profile, iconeAtivo: 'person', iconeInativo: 'person-outline' },
+const TabArr: BottomNavIconProps[] = [
+  { route: 'EventRoute', component: EventRoute, activeIcon: 'calendar', inactiveIcon: 'calendar-outline' },
+  { route: 'Home', component: Home, activeIcon: 'home', inactiveIcon: 'home-outline' },
+  { route: 'Profile', component: Profile, activeIcon: 'person', inactiveIcon: 'person-outline' },
 ]
 
 export const Main = () => {
@@ -52,7 +51,7 @@ export const Main = () => {
     >
       {TabArr.map((item, index) => {
         return (
-          <Tab.Screen key={index} name={item.rota} component={item.componente}
+          <Tab.Screen key={index} name={item.route} component={item.component}
             options={{
               tabBarShowLabel: false,
               tabBarButton: (props) => <BottomBarIcon {...props} item={item} />

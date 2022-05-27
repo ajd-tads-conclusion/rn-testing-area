@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Feather } from '@expo/vector-icons'
-import { EventRouteScreens } from '../../routes/EventRoute'
+import React, {
+  useEffect,
+  useState
+} from 'react'
+import { COLORS } from '../../theme/colors'
 import { supabase } from '../../api/supabase'
-import { Button, Pressable, ScrollView, Text, View } from 'react-native'
+import { Description, Title } from '../../components'
+import { EventRouteScreens } from '../../routes/EventRoute'
+import { Button, Pressable, ScrollView, View } from 'react-native'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+
 type Props = NativeStackScreenProps<EventRouteScreens, 'EventDetails'>
 
-export type Evento = {
+export type Event = {
   id: string,
   title: string,
   description: string,
@@ -19,18 +24,18 @@ export type Evento = {
 }
 
 export const EventDetails = ({ route, navigation }: Props) => {
-  const [evento, setEvento] = useState<Evento | null>(null)
+  const [event, setEvent] = useState<Event | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const { id } = route.params
 
   useEffect(() => {
-    let componenteCarregado = true
+    let componentMounted = true
 
-    async function carregarEvento() {
+    async function fetchEvent() {
       setLoading(true)
       const { data, error } =
         await supabase
-          .from<Evento>('event')
+          .from<Event>('event')
           .select('title,description,date,time,modality,max_participants,created_by')
           .eq('id', id)
           .limit(1)
@@ -38,125 +43,93 @@ export const EventDetails = ({ route, navigation }: Props) => {
         return
       }
 
-      if (componenteCarregado) setEvento(data[0])
+      if (componentMounted) setEvent(data[0])
 
       setTimeout(() => {
         setLoading(false)
       }, 500)
     }
 
-    carregarEvento()
+    fetchEvent()
 
     return () => {
-      componenteCarregado = false
+      componentMounted = false
     }
   }, [])
 
   return (
     <View>
-
-      <View>
-        <Pressable
-          onPress={() => navigation.navigate('Events')}
-        >
-          <View
-          />
-
-        </Pressable>
-
-        <Pressable
-          onPress={() => alert('chamar drawer')}
-        >
-          <Feather name='menu' color='white' size={7} />
-        </Pressable>
-      </View>
+      <Pressable
+        onPress={navigation.goBack}
+      >
+        <View
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: 15,
+            backgroundColor: COLORS.primary,
+          }}
+        />
+      </Pressable>
       <ScrollView>
 
+        <Title>
+          Evento
+        </Title>
+
+        <Description>
+          {event?.title}
+        </Description>
+
+        <Title>
+          Criado por
+        </Title>
+
+        <Description>
+          {event?.created_by}
+        </Description>
+
+        <Title>
+          Data
+        </Title>
+
+        <Description>
+          {event?.date}
+        </Description>
+
+        <Title>
+          Horário
+        </Title>
+
+
+        <Description>
+          {event?.time}
+        </Description>
+
+        <Title>
+          Modalidade
+        </Title>
+
+        <Description>
+          {event?.modality}
+        </Description>
+
+        <Title>
+          Participantes
+        </Title>
+
+        <Description>
+          {event?.max_participants.toString()}
+        </Description>
+
         <View>
-          <Text
-          >
-            <Text>
-              {evento?.title}
-            </Text>
-          </Text>
+          <Button
+            title='Ver organizador'
+          />
 
-          <Text>
-            <Text>
-              {evento?.description}
-            </Text>
-          </Text>
-
-          <View>
-
-            <View>
-              <Text>
-                Criado por
-              </Text>
-              <Text>
-                <Text>
-                  {evento?.created_by}
-                </Text>
-              </Text>
-            </View>
-
-            <View>
-              <Text>
-                Data
-              </Text>
-
-              <Text>
-                <Text>
-                  {evento?.date}
-                </Text>
-              </Text>
-            </View>
-
-            <View>
-              <Text>
-                Horário
-              </Text>
-
-              <Text>
-                <Text>
-                  {evento?.time}
-                </Text>
-              </Text>
-            </View>
-
-            <View>
-              <Text>
-                Modalidade
-              </Text>
-
-              <Text>
-                <Text>
-                  {evento?.modality}
-                </Text>
-              </Text>
-            </View>
-
-            <View>
-              <Text>
-                Participantes
-              </Text>
-              <Text>
-                <Text>
-                  {evento?.max_participants}
-                </Text>
-              </Text>
-            </View>
-
-          </View>
-
-          <View>
-            <Button
-              title='Ver organizador'
-            />
-
-            <Button
-              title='Inscrever-se'
-            />
-          </View>
+          <Button
+            title='Inscrever-se'
+          />
         </View>
 
       </ScrollView>

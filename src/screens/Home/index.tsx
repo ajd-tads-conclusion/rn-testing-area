@@ -1,12 +1,12 @@
 import React from 'react'
-import { Feather } from '@expo/vector-icons';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Pressable, View } from 'react-native';
+import { COLORS } from '../../theme/colors'
+import { Feather } from '@expo/vector-icons'
+import { Pressable, View } from 'react-native'
 import type { AuthScreenParams } from '../../routes/Auth'
-import { deleteLocalSession } from '../../helpers/AsyncStorage/asyncStorage';
-import { signOutUser } from '../../routes/Auth/supabaseAuth';
+import { signOutUser } from '../../routes/Auth/supabaseAuth'
 import { useToast } from 'react-native-toast-notifications'
-import { COLORS } from '../../theme/colors';
+import { deleteLocalSession } from '../../helpers/AsyncStorage/asyncStorage'
+import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 type Props = NativeStackScreenProps<AuthScreenParams, 'MainTabs'>
 
@@ -24,7 +24,7 @@ export const Home = ({ navigation }: Props) => {
 
         <Pressable
           onPress={() => {
-            (async function () {
+            async function handleSignOut() {
               const error = await signOutUser()
               deleteLocalSession()
 
@@ -35,7 +35,9 @@ export const Home = ({ navigation }: Props) => {
               }
 
               navigation.navigate('SignIn')
-            })()
+            }
+
+            handleSignOut()
           }}
         >
           <View

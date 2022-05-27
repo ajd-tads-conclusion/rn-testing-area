@@ -8,11 +8,11 @@ import {
   StyleSheet,
   GestureResponderEvent
 } from 'react-native'
-import Animated from 'react-native-reanimated'
-import { animarMudancaDeEstilo } from '../../helpers/animarMudancaDeEstilo'
-import { PropsIconeBarraInferior } from '../../routes/Main'
-import { Ionicons } from '@expo/vector-icons'
 import { COLORS } from '../../theme/colors'
+import { Ionicons } from '@expo/vector-icons'
+import Animated from 'react-native-reanimated'
+import { BottomNavIconProps } from '../../routes/Main'
+import { animateStyleChange } from '../../helpers/animateStyleChange'
 
 const styles = StyleSheet.create({
   container: {
@@ -23,20 +23,20 @@ const styles = StyleSheet.create({
 })
 
 type Props = {
-  item: PropsIconeBarraInferior,
+  item: BottomNavIconProps,
   onPress?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent) => void,
   accessibilityState?: any
 }
 
 export const BottomBarIcon = ({ item, onPress, accessibilityState }: Props) => {
   const focused = accessibilityState.selected
-  const [iconeEstaAtivo, setIconeAtivo] = useState<boolean>(false)
+  const [isActive, setActiviness] = useState<boolean>(false)
 
   useEffect(() => {
-    setIconeAtivo(focused)
+    setActiviness(focused)
   }, [focused])
 
-  const estiloInicial: ViewStyle = {
+  const initialStyle: ViewStyle = {
     width: 30,
     height: 30,
     borderColor: COLORS.white,
@@ -46,19 +46,19 @@ export const BottomBarIcon = ({ item, onPress, accessibilityState }: Props) => {
     alignItems: 'center'
   }
 
-  const posicaoAnimada = animarMudancaDeEstilo({
+  const animatedPosition = animateStyleChange({
     from: 0,
     to: -20,
-    bool: iconeEstaAtivo,
+    bool: isActive,
     duration: 350,
     property: 'marginTop',
     bezierValues: [0.17, 0.67, 0.74, 1.58]
   })
 
-  const bordaAnimada = animarMudancaDeEstilo({
+  const animatedBorder = animateStyleChange({
     from: 4,
     to: 10,
-    bool: iconeEstaAtivo,
+    bool: isActive,
     duration: 350,
     property: 'borderRadius',
     bezierValues: [0.17, 0.67, 0.74, 1.58]
@@ -70,8 +70,8 @@ export const BottomBarIcon = ({ item, onPress, accessibilityState }: Props) => {
       activeOpacity={1}
       style={styles.container}
     >
-      <Animated.View style={[estiloInicial, posicaoAnimada, bordaAnimada]}>
-        <Ionicons size={13} color={'white'} name={iconeEstaAtivo ? item.iconeAtivo : item.iconeInativo} />
+      <Animated.View style={[initialStyle, animatedPosition, animatedBorder]}>
+        <Ionicons size={13} color={'white'} name={isActive ? item.activeIcon : item.inactiveIcon} />
       </Animated.View>
     </TouchableOpacity>
   )

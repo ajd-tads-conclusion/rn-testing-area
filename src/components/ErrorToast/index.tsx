@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text } from "react-native"
+import { View, Text } from 'react-native'
 import { COLORS } from '../../theme/colors'
 import { AntDesign } from '@expo/vector-icons'
-import { ToastProps } from "react-native-toast-notifications/lib/typescript/toast"
+import { ToastProps } from 'react-native-toast-notifications/lib/typescript/toast'
 
 export const ErrorToast = (props: ToastProps) => {
   return (
