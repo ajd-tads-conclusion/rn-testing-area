@@ -2,6 +2,7 @@
   "expo": {
     "name": "bottom-nav",
     "slug": "bottom-nav",
+    "scheme": "mycoolredirect",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -35,6 +36,12 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "supabase": {
+        "url": "https://wamewmihjqjpmcfvjtzj.supabase.co",
+        "publicKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNTQyMDIwMiwiZXhwIjoxOTUwOTk2MjAyfQ.-xblxgG9NeK16n1IDL6dVBtl-6jyOHG2H38h4YZMETI"
+      }
+    }
   }
 }

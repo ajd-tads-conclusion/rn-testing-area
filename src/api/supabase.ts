@@ -1,9 +1,14 @@
-import { createClient } from '@supabase/supabase-js';
-
+import Constants from 'expo-constants'
+import { Platform } from 'react-native'
+import { SUPA_KEY, SUPA_URL } from '@env'
+import { createClient } from '@supabase/supabase-js'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { SUPA_URL, SUPA_KEY } from '@env'
 
-export const supabase = createClient(SUPA_URL, SUPA_KEY, {
+const isBrowser = () => Platform.OS === 'web'
+
+export const supabaseConfig = isBrowser() ? { url: SUPA_URL, publicKey: SUPA_KEY } : Constants.manifest?.extra?.supabase
+
+export const supabase = createClient(supabaseConfig.url, supabaseConfig.publicKey, {
   localStorage: AsyncStorage,
-  detectSessionInUrl: false
+  // detectSessionInUrl: false
 })

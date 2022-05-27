@@ -1,4 +1,6 @@
 import { COLORS } from '../../theme/colors'
+import { AntDesign } from '@expo/vector-icons'
+import * as AuthSession from 'expo-auth-session'
 import { Link, TextInput } from '../../components'
 import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable } from 'react-native'
@@ -6,10 +8,30 @@ import type { AuthScreenParams } from '../../routes/Auth'
 import { useToast } from 'react-native-toast-notifications'
 import { AuthResponse, createUser } from '../../routes/Auth/supabaseAuth'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { supabase, supabaseConfig } from '../../api/supabase'
 
 type Props = NativeStackScreenProps<AuthScreenParams, 'SignUp'>
 
 export const SignUp = ({ navigation }: Props) => {
+  async function handleGoogleLogin() {
+    const proxyRedirectUri = AuthSession.makeRedirectUri({ useProxy: true })
+    const redirectUri = AuthSession.makeRedirectUri({ useProxy: false })
+    const provider = 'google'
+
+    const response = await AuthSession.startAsync({
+      authUrl: `${supabaseConfig.url}/auth/v1/authorize?provider=${provider}&redirect_to=${proxyRedirectUri}`,
+      returnUrl: redirectUri
+    })
+
+    if (response.type !== 'success') return
+
+    // TODO: update redirect based on context
+    await supabase.auth.signIn({
+      refreshToken: response.params.refresh_token,
+    })
+  }
+
+
   const [email, setEmail] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState<string>('')
@@ -109,6 +131,33 @@ export const SignUp = ({ navigation }: Props) => {
           >
             Cadastrar
           </Text>
+        </Pressable>
+
+        <Pressable
+          style={{
+            marginTop: 10,
+            backgroundColor: COLORS.primary,
+            borderRadius: 5,
+            padding: 10,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+
+          onPress={handleGoogleLogin}
+        >
+          <Text
+            style={{
+              color: COLORS.white,
+              fontSize: 15,
+              marginRight: 10,
+              fontWeight: 'bold'
+            }}
+          >
+            Entrar com o Google
+          </Text>
+
+          <AntDesign name="google" size={20} color={COLORS.white} />
         </Pressable>
 
         <View
