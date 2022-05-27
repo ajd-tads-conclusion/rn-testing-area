@@ -1,40 +1,46 @@
-import React, { useEffect } from 'react'
+import React, {
+  useEffect,
+  useCallback,
+  useState
+} from 'react'
 import { COLORS } from '../../theme/colors'
 import { Feather } from '@expo/vector-icons'
 import { supabase } from '../../api/supabase'
+import { EventCardData } from '../../../types/types'
 import { EventCard, SearchBar } from '../../components'
-import { View, FlatList, Pressable } from 'react-native'
 import { EventRouteScreens } from '../../routes/EventRoute'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { View, FlatList, Pressable, RefreshControl } from 'react-native'
 
-export type NavigationTelaDeEventos = NativeStackScreenProps<EventRouteScreens, 'Events'>['navigation']
-
-type DadosDoCardDeEvento = {
-  id: string,
-  titulo: string,
-  descricao: string,
-  data: string
-}
+export type EventScreenNavigation = NativeStackScreenProps<EventRouteScreens, 'Events'>['navigation']
 
 export const Events = () => {
-  const [eventos, setEventos] = React.useState<DadosDoCardDeEvento[] | null>(null)
+  const [events, setEvents] = useState<EventCardData[] | null>(null)
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true)
+    console.log('refreshing')
+    setRefreshing(false)
+  }, []);
 
   useEffect(() => {
-    let componenteCarregado = true
+    let componentMounted = true
 
-    async function carregarPosts() {
-      const { data, error } = await supabase.from<DadosDoCardDeEvento>('event').select('title,description,date,id')
+    async function fetchPosts() {
+      const { data, error } = await supabase.from<EventCardData>('event').select('title,description,date,id')
+
       if (error) {
         return
       }
 
-      if (componenteCarregado) setEventos(data)
+      if (componentMounted) setEvents(data)
     }
 
-    carregarPosts()
+    fetchPosts()
 
     return () => {
-      componenteCarregado = false
+      componentMounted = false
     }
   }, [])
 
@@ -69,7 +75,13 @@ export const Events = () => {
       </View>
 
       <FlatList
-        data={eventos}
+        data={events}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
         style={{
           borderColor: COLORS.error1,
           borderWidth: 1,

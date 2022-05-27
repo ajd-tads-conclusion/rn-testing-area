@@ -4,23 +4,17 @@ import React, {
 } from 'react'
 import { COLORS } from '../../theme/colors'
 import { supabase } from '../../api/supabase'
+import { EventCardData } from '../../../types/types'
 import { Text, View, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { NavigationTelaDeEventos } from '../../screens/Events'
+import { EventScreenNavigation } from '../../screens/Events'
 
 type Props = {
   id: string
 }
 
-type EventCardData = {
-  id: string,
-  title: string,
-  description: string,
-  date: string
-}
-
 export const EventCard = (props: Props) => {
-  const navigation = useNavigation<NavigationTelaDeEventos>()
+  const navigation = useNavigation<EventScreenNavigation>()
   const [details, setDetails] = useState<EventCardData | null>(null)
 
   useEffect(() => {
