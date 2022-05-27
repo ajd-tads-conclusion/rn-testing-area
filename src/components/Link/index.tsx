@@ -1,5 +1,6 @@
 import React from 'react'
 import { Pressable, Text } from 'react-native'
+import { COLORS } from '../../theme/colors'
 
 type Props = {
   onPress: () => void,
@@ -13,7 +14,7 @@ export const Link = ({ onPress, title }: Props) => {
     >
       <Text
         style={{
-          padding: 5,
+          color: COLORS.white,
           textDecorationLine: 'underline',
           textDecorationStyle: 'solid',
         }}

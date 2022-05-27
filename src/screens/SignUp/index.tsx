@@ -111,22 +111,31 @@ export const SignUp = ({ navigation }: Props) => {
           </Text>
         </Pressable>
 
-        <View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginTop: 20,
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: 'bold',
+              marginRight: 10,
               color: COLORS.white,
-              marginTop: 10,
               textAlign: 'center'
             }}
           >
             Não possui uma conta?
-            <Link
-              onPress={() => navigation.navigate('SignIn')}
-              title={'Entrar'}
-            />
           </Text>
+
+          <Link
+            onPress={() => navigation.navigate('SignIn')}
+            title={'Entrar'}
+          />
         </View>
 
       </View>

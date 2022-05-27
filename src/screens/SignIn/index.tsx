@@ -24,7 +24,7 @@ type Inputs = {
 }
 
 const schema = yup.object({
-  email: yup.string().email('O e-mail deve ser válido').required('o e-mail é obrigatório'),
+  email: yup.string().email('O email deve ser válido').required('O email é obrigatório'),
   password: yup.string().required('A senha é obrigatória').min(6, 'A senha deve ter no mínimo 6 caracteres')
 })
 
@@ -185,23 +185,31 @@ export const SignIn = ({ navigation }: Props) => {
           </Text>
         </Pressable>
 
-        <View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginTop: 20,
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: 'bold',
+              marginRight: 10,
               color: COLORS.white,
-              marginTop: 10,
               textAlign: 'center'
             }}
           >
             Não possui uma conta?
-            <Link
-              onPress={() => navigation.navigate('SignUp')}
-              title={'Crie uma aqui'}
-            />
-
           </Text>
+
+          <Link
+            onPress={() => navigation.navigate('SignUp')}
+            title={'Crie uma aqui'}
+          />
         </View>
 
       </View>
