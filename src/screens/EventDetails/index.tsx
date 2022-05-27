@@ -4,9 +4,9 @@ import React, {
 } from 'react'
 import { COLORS } from '../../theme/colors'
 import { supabase } from '../../api/supabase'
-import { Description, Title } from '../../components'
 import { EventRouteScreens } from '../../routes/EventRoute'
-import { Button, Pressable, ScrollView, View } from 'react-native'
+import { Description, Title, BackButton } from '../../components'
+import { Button, ScrollView, View } from 'react-native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 type Props = NativeStackScreenProps<EventRouteScreens, 'EventDetails'>
@@ -23,7 +23,7 @@ export type Event = {
   is_event: boolean
 }
 
-export const EventDetails = ({ route, navigation }: Props) => {
+export const EventDetails = ({ route }: Props) => {
   const [event, setEvent] = useState<Event | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const { id } = route.params
@@ -45,9 +45,9 @@ export const EventDetails = ({ route, navigation }: Props) => {
 
       if (componentMounted) setEvent(data[0])
 
-      setTimeout(() => {
-        setLoading(false)
-      }, 500)
+      // setTimeout(() => {
+      // }, 500)
+      setLoading(false)
     }
 
     fetchEvent()
@@ -58,20 +58,17 @@ export const EventDetails = ({ route, navigation }: Props) => {
   }, [])
 
   return (
-    <View>
-      <Pressable
-        onPress={navigation.goBack}
-      >
-        <View
-          style={{
-            width: 30,
-            height: 30,
-            borderRadius: 15,
-            backgroundColor: COLORS.primary,
-          }}
-        />
-      </Pressable>
+    <View
+      style={{
+        flex: 1,
+        borderColor: COLORS.white,
+        borderWidth: 1,
+      }}
+    >
+
       <ScrollView>
+
+        <BackButton />
 
         <Title>
           Evento
@@ -115,11 +112,11 @@ export const EventDetails = ({ route, navigation }: Props) => {
         </Description>
 
         <Title>
-          Participantes
+          Máximo de participantes
         </Title>
 
         <Description>
-          {event?.max_participants.toString()}
+          {event?.max_participants}
         </Description>
 
         <View>

@@ -5,6 +5,7 @@ import { SearchBar } from './SearchBar'
 import { Container } from './Container'
 import { EventCard } from './EventCard'
 import { ErrorLabel } from './ErrorLabel'
+import { BackButton } from './BackButton'
 import { ErrorToast } from './ErrorToast'
 import { Description } from './Description'
 import { BottomBarIcon } from './BottomBarIcon'
@@ -17,6 +18,7 @@ export {
   Container,
   EventCard,
   ErrorLabel,
+  BackButton,
   ErrorToast,
   Description,
   BottomBarIcon
