@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text } from 'react-native'
 import { COLORS } from '../../theme/colors'
 import { User } from '@supabase/supabase-js'
 import { supabase } from '../../api/supabase'
 
 export const Profile = () => {
-  const { id: userId } = supabase.auth.user() as User
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    setUser(supabase.auth.user())
+  })
 
   return (
     <View
@@ -29,7 +33,7 @@ export const Profile = () => {
             fontWeight: 'bold',
             color: COLORS.white
           }}
-        >Olá {userId}</Text>
+        >Olá {user?.id}</Text>
       </View>
     </View>
   )
